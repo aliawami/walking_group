@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedometer/pedometer.dart';
@@ -24,7 +25,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   void onStepCount(StepCount event) {
-    print(event);
+    log(event.steps.toString());
     if (!initialized) {
       initialSteps = event.steps;
       initialized = true;
@@ -35,22 +36,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   void onPedestrianStatusChanged(PedestrianStatus event) {
-    print(event);
+    log(event.status);
     setState(() {
       _status = event.status;
     });
   }
 
   void onPedestrianStatusError(error) {
-    print('onPedestrianStatusError: $error');
+    log('onPedestrianStatusError: $error');
     setState(() {
       _status = 'Pedestrian Status not available';
     });
-    print(_status);
+    log(_status);
   }
 
   void onStepCountError(error) {
-    print('onStepCountError: $error');
+    log('onStepCountError: $error');
     setState(() {
       _steps = 'Step Count not available';
     });
@@ -74,7 +75,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     }
 
     _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
-    (await _pedestrianStatusStream.listen(onPedestrianStatusChanged))
+    (_pedestrianStatusStream.listen(onPedestrianStatusChanged))
         .onError(onPedestrianStatusError);
 
     _stepCountStream = Pedometer.stepCountStream;

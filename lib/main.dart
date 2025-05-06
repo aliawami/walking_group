@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walking_group/core/themes/dark/dark_theme.dart';
+import 'package:walking_group/utilities/utilities.dart';
 
-import 'features/features.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-void main() {
-  runApp(
-    ProviderScope(
-      child: const MyApp(),
-    ),
-  );
+// Ideal time to initialize
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 5001);
+//...
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,14 +21,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
-        useMaterial3: true,
-      ),
-      home: HomeView(),
+      theme: darkTheme,
+      routerConfig: routers,
     );
   }
 }
