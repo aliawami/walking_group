@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:walking_group/components/const_value/paddings/padding.dart';
+import 'package:walking_group/features/event_list/views/event_list_cell.dart';
 
 class EventListView extends ConsumerStatefulWidget {
   const EventListView({super.key});
@@ -19,28 +20,7 @@ class _EventListViewState extends ConsumerState<EventListView> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Card(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Event Title',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Text(
-                        'Event Date',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
+            EventListCell()
           ],
         ),
       ),
