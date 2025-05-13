@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:walking_group/components/const_value/paddings/padding.dart';
 
 class SuccessDialog extends ConsumerWidget {
-  final String error;
+  final String message;
   const SuccessDialog({
-    required this.error,
+    required this.message,
     super.key,
   });
 
@@ -28,7 +28,7 @@ class SuccessDialog extends ConsumerWidget {
             Padding(
               padding: padding10All,
               child: Text(
-                error,
+                message,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
