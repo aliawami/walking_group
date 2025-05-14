@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:walking_group/core/cores.dart';
 import 'package:walking_group/core/network/firestore_service.dart';
 import 'package:walking_group/core/statics/statics.dart';
 import 'package:walking_group/models/models.dart';

@@ -3,14 +3,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:walking_group/core/themes/dark/dark_theme.dart';
+import 'package:walking_group/firebase_options.dart';
+// import 'package:walking_group/firebase_options.dart';
 import 'package:walking_group/utilities/utilities.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // await Firebase.initializeApp( demoProjectId: "demo-return-to-firebase-8cbe4");
 
 // Ideal time to initialize
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 5001);
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 5001);
 //...
   runApp(ProviderScope(child: const MyApp()));
 }

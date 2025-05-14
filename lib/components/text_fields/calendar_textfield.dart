@@ -50,7 +50,7 @@ class _CalendarFieldState extends ConsumerState<CalendarField> {
           ref
               .read(eventCreateServiceProvider.notifier)
               .updateDate(date: datepicker!);
-          widget.controller.text = datepicker!.dateToString();
+          widget.controller.text = datepicker.dateToString();
         });
       },
       onChanged: widget.onChanged,

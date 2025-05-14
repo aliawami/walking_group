@@ -45,7 +45,7 @@ class _TimeFieldState extends ConsumerState<TimeField> {
           ref
               .read(eventCreateServiceProvider.notifier)
               .updateTime(time: timepicker!.format(context));
-          widget.controller.text = timepicker!.format(context);
+          widget.controller.text = timepicker.format(context);
         });
       },
       onChanged: widget.onChanged,

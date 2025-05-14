@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walking_group/models/models.dart';
 
 class EventListCell extends ConsumerWidget {
-  const EventListCell({super.key});
+  final EventData eventData;
+  const EventListCell({
+    required this.eventData,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,11 +27,13 @@ class EventListCell extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Event Title',
+                      eventData.title ?? '',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
-                      'Event Date',
+                      eventData.eventDate == null
+                          ? DateTime.now().toString()
+                          : eventData.eventDate.toString(),
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
