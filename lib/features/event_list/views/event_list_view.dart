@@ -44,7 +44,7 @@ class _EventListViewState extends ConsumerState<EventListView> {
           child: switch (eventListPro) {
             AsyncData(:final value) => Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.center,
                 children: value
                     .map((event) => EventListCell(
                           eventData: event,

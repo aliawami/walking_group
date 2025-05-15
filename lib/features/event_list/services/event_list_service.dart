@@ -21,7 +21,7 @@ class EventListService extends _$EventListService {
         return eventData.copyWith(id: e.doc.id);
       }).toList();
       // final eventList = EventInfoData.fromJson();
-      state = AsyncValue.data(dataList);
+      return dataList;
     } on FirebaseException catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
     }
