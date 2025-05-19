@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walking_group/components/components.dart';
 import 'package:walking_group/components/const_value/paddings/padding.dart';
+import 'package:walking_group/features/event_details/current_event/services/current_event_details_service.dart';
 import 'package:walking_group/features/event_list/services/event_list_service.dart';
 import 'package:walking_group/features/event_list/views/event_list_cell.dart';
 import 'package:walking_group/models/models.dart';
@@ -17,6 +18,7 @@ class EventListView extends ConsumerStatefulWidget {
 class _EventListViewState extends ConsumerState<EventListView> {
   @override
   Widget build(BuildContext context) {
+    ref.watch(currentEventDetailsServiceProvider);
     final AsyncValue<List<EventData>> eventListPro =
         ref.watch(eventListServiceProvider);
     return Scaffold(

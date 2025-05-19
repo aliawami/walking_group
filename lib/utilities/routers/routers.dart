@@ -13,7 +13,7 @@ final routers = GoRouter(
       path: '/',
       parentNavigatorKey: rootNavigatorKey,
       pageBuilder: (context, state) =>
-          const NoTransitionPage(child: LoginView()),
+          const NoTransitionPage(child: HomeView()),
       // routes: [
       //   GoRoute(
       //     path: 'signup',
@@ -27,11 +27,15 @@ final routers = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => const EventListView(),
+      builder: (context, state) => const HomeView(),
       routes: [
         GoRoute(
           path: 'create_event',
           builder: (context, state) => const EventCreateView(),
+        ),
+        GoRoute(
+          path: 'event_details',
+          builder: (context, state) => const CurrentEventDetailsView(),
         ),
       ],
       // const HomeView(),
