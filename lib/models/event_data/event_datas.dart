@@ -1,1 +1,0 @@
-export 'event_info_data/event_info_data.dart';

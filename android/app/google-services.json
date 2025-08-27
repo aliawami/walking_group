@@ -7,6 +7,82 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:613430880870:android:5b53efbc07ef9b2b9b1ba7",
+        "android_client_info": {
+          "package_name": "com.alialawami.qtw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVZEpuGieNumArNmM_YIdtbRoqDFjfkYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613430880870:android:2a5a1247853b035e9b1ba7",
+        "android_client_info": {
+          "package_name": "com.alialawami.walking_group"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVZEpuGieNumArNmM_YIdtbRoqDFjfkYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613430880870:android:731c908d8227fcd79b1ba7",
+        "android_client_info": {
+          "package_name": "com.aliawami.qtw_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVZEpuGieNumArNmM_YIdtbRoqDFjfkYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613430880870:android:0d95079415ed65859b1ba7",
+        "android_client_info": {
+          "package_name": "com.example.qtw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVZEpuGieNumArNmM_YIdtbRoqDFjfkYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:613430880870:android:24b9772e699211e59b1ba7",
         "android_client_info": {
           "package_name": "com.example.walking_group"

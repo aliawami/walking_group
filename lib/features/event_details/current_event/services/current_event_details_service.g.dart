@@ -7,12 +7,12 @@ part of 'current_event_details_service.dart';
 // **************************************************************************
 
 String _$currentEventDetailsServiceHash() =>
-    r'13eab9bdb600c36a92683e92c3dfe3b00cdae96e';
+    r'7513c1bd23193a8a359341ef5e391d6128f56cb4';
 
 /// See also [CurrentEventDetailsService].
 @ProviderFor(CurrentEventDetailsService)
 final currentEventDetailsServiceProvider = AutoDisposeAsyncNotifierProvider<
-    CurrentEventDetailsService, EventData>.internal(
+    CurrentEventDetailsService, Events>.internal(
   CurrentEventDetailsService.new,
   name: r'currentEventDetailsServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final currentEventDetailsServiceProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$CurrentEventDetailsService = AutoDisposeAsyncNotifier<EventData>;
+typedef _$CurrentEventDetailsService = AutoDisposeAsyncNotifier<Events>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

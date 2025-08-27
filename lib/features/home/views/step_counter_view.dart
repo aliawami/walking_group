@@ -1,11 +1,9 @@
 import 'dart:developer';
-import 'package:cm_pedometer/cm_pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:walking_group/components/const_value/paddings/padding.dart';
-import 'package:walking_group/core/pedometer/step_count_service.dart';
 
 class StepCounterView extends ConsumerStatefulWidget {
   final int steps;
@@ -23,6 +21,7 @@ class _StepCounterViewState extends ConsumerState<StepCounterView> {
 
   @override
   void initState() {
+    _steps = widget.steps;
     super.initState();
     initPlatformState();
   }
@@ -107,7 +106,7 @@ class _StepCounterViewState extends ConsumerState<StepCounterView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "${widget.steps}",
+                  "$_steps",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 Text('Steps', style: Theme.of(context).textTheme.labelMedium),

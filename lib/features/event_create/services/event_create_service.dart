@@ -13,7 +13,7 @@ part 'event_create_service.g.dart';
 @riverpod
 class EventCreateService extends _$EventCreateService {
   @override
-  FutureOr<EventData> build() async => EventData();
+  FutureOr<Events> build() async => Events();
 
   Future<void> updateTitle({required String title}) async {
     final previous = await future;

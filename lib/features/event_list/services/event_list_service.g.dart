@@ -6,12 +6,12 @@ part of 'event_list_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventListServiceHash() => r'd458046163c0df1fdf7f1262c3f1e029ff492b25';
+String _$eventListServiceHash() => r'a9d3ca68ece57369876d3ea6ad028eb55e542ddf';
 
 /// See also [EventListService].
 @ProviderFor(EventListService)
-final eventListServiceProvider = AutoDisposeAsyncNotifierProvider<
-    EventListService, List<EventData>>.internal(
+final eventListServiceProvider =
+    AutoDisposeAsyncNotifierProvider<EventListService, List<Events>>.internal(
   EventListService.new,
   name: r'eventListServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final eventListServiceProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$EventListService = AutoDisposeAsyncNotifier<List<EventData>>;
+typedef _$EventListService = AutoDisposeAsyncNotifier<List<Events>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

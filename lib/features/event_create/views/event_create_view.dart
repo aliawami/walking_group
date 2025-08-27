@@ -36,7 +36,7 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
 
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<EventData> eventCreateProv =
+    final AsyncValue<Events> eventCreateProv =
         ref.watch(eventCreateServiceProvider);
     ref.listen(eventCreateServiceProvider, (pre, next) {
       if (next.value != null) {

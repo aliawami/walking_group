@@ -10,7 +10,7 @@ class CurrentEventDetailsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<EventData> currentEventPro =
+    final AsyncValue<Events> currentEventPro =
         ref.watch(currentEventDetailsServiceProvider);
     return Scaffold(
         appBar: AppBar(

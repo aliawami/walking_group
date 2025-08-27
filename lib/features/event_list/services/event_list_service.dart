@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:walking_group/core/cores.dart';
 import 'package:walking_group/core/network/firestore_service.dart';
 import 'package:walking_group/models/models.dart';
-import 'dart:developer';
+
 part 'event_list_service.g.dart';
 
 @riverpod
-class EventListService extends _$EventListService {
+class EventListService extends _$EventListService  with LoggingMixin{
   @override
-  Future<List<EventData>> build() async {
+  Future<List<Events>> build() async {
     final fireStore = ref.read(fireStoreServiceProvider);
 
     try {
@@ -16,9 +17,9 @@ class EventListService extends _$EventListService {
       final List<DocumentChange> data = eventListResponse.docChanges;
       final dataList = data.map((e) {
         final data = e.doc.data();
-        final eventData = EventData.fromJson(data as Map<String, dynamic>);
-        log(eventData.toString());
-        return eventData.copyWith(id: e.doc.id);
+        final event = Events.fromJson(data as Map<String, dynamic>);
+        log(event.toString());
+        return event.copyWith(id: e.doc.id);
       }).toList();
       // final eventList = EventInfoData.fromJson();
       return dataList;
@@ -37,9 +38,9 @@ class EventListService extends _$EventListService {
       final List<DocumentChange> data = eventListResponse.docChanges;
       final dataList = data.map((e) {
         final data = e.doc.data();
-        final eventData = EventData.fromJson(data as Map<String, dynamic>);
-        log(eventData.toString());
-        return eventData.copyWith(id: e.doc.id);
+        final event = Events.fromJson(data as Map<String, dynamic>);
+        log(event.toString());
+        return event.copyWith(id: e.doc.id);
       }).toList();
       // final eventList = EventInfoData.fromJson();
       state = AsyncValue.data(dataList);

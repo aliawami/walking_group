@@ -8,9 +8,9 @@ import 'package:walking_group/features/event_details/current_event/services/curr
 import 'package:walking_group/models/models.dart';
 
 class EventListCell extends ConsumerWidget {
-  final EventData eventData;
+  final Events events;
   const EventListCell({
-    required this.eventData,
+    required this.events,
     super.key,
   });
 
@@ -20,7 +20,7 @@ class EventListCell extends ConsumerWidget {
       onTap: () {
         ref
             .read(currentEventDetailsServiceProvider.notifier)
-            .selectedEvent(event: eventData);
+            .selectedEvent(event: events);
         context.go('/home/event_details');
       },
       child: Card(
@@ -39,13 +39,13 @@ class EventListCell extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        eventData.title ?? '',
+                        events.title ?? '',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
-                        eventData.eventDate == null
+                        events.eventDate == null
                             ? DateTime.now().toString()
-                            : eventData.eventDate!.dateTimeToString(),
+                            : events.eventDate!.dateTimeToString(),
                         style:
                             Theme.of(context).textTheme.labelMedium?.copyWith(
                                   fontWeight: FontWeight.bold,

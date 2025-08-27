@@ -14,12 +14,12 @@ final routers = GoRouter(
       parentNavigatorKey: rootNavigatorKey,
       pageBuilder: (context, state) =>
           const NoTransitionPage(child: HomeView()),
-      // routes: [
-      //   GoRoute(
-      //     path: 'signup',
-      //     builder: (context, state) => const SignupView(),
-      //   ),
-      // ],
+      routes: [
+        GoRoute(
+          path: '/signup',
+          builder: (context, state) => const SignupView(),
+        ),
+      ],
     ),
     GoRoute(
       path: '/signup',

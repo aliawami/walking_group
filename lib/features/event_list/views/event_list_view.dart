@@ -19,7 +19,7 @@ class _EventListViewState extends ConsumerState<EventListView> {
   @override
   Widget build(BuildContext context) {
     ref.watch(currentEventDetailsServiceProvider);
-    final AsyncValue<List<EventData>> eventListPro =
+    final AsyncValue<List<Events>> eventListPro =
         ref.watch(eventListServiceProvider);
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +49,7 @@ class _EventListViewState extends ConsumerState<EventListView> {
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: value
                     .map((event) => EventListCell(
-                          eventData: event,
+                          events: event,
                         ))
                     .toList(), //[EventListCell()],
               ),
