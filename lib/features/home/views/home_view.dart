@@ -1,9 +1,6 @@
-import 'dart:developer';
-import 'package:cm_pedometer/cm_pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:walking_group/core/pedometer/pedestrian_service.dart';
-import 'package:walking_group/features/home/views/events_cards.dart';
+import 'package:walking_group/components/components.dart';
 import 'package:walking_group/features/home/views/home_activate_view.dart';
 import 'package:walking_group/features/home/views/upcoming_events.dart';
 
@@ -42,7 +39,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
             Flexible(
               fit: FlexFit.tight,
               flex: 1,
-              child: HomeActivateView(),
+              child: Padding(
+                padding: padding8V,
+                child: HomeActivateView(),
+              ),
             ),
           ],
         ),

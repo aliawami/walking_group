@@ -37,7 +37,7 @@ class _StepCounterViewState extends ConsumerState<StepCounterView> {
   void onStepCountError(error) {
     log('onStepCountError: $error');
     setState(() {
-      _steps = -1;
+      _steps = 0;
     });
   }
 
@@ -79,7 +79,7 @@ class _StepCounterViewState extends ConsumerState<StepCounterView> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blueGrey,
+        // color: Colors.blueGrey,
         shape: BoxShape.circle,
         border: Border.all(
           width: 5,
@@ -109,7 +109,7 @@ class _StepCounterViewState extends ConsumerState<StepCounterView> {
                   "$_steps",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                Text('Steps', style: Theme.of(context).textTheme.labelMedium),
+                // Text('Steps', style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
           ),

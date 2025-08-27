@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:walking_group/features/event_create/event_creates.dart';
 import 'package:walking_group/features/home/views/events_cards.dart';
 
 class UpcomingEvents extends ConsumerStatefulWidget {

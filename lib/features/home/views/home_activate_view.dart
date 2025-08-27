@@ -17,7 +17,7 @@ class HomeActivateView extends ConsumerStatefulWidget {
 class _HomeActivateViewState extends ConsumerState<HomeActivateView>
     with LoggingMixin {
   late Stream<CMPedometerData> _stepCounter;
-  int _steps = -1;
+  int _steps = 0;
 
   @override
   void initState() {
@@ -33,12 +33,34 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.center,
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Container(
+          padding: padding15V,
+          alignment: Alignment.center,
+          // color: Colors.blueGrey.shade900,
+          decoration: BoxDecoration(
+            // color: Colors.blueGrey.shade900,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                12,
+              ),
+            ),
+            border: Border.all(
+              width: 2,
+              color: Colors.blueGrey.shade400,
+            ),
+          ),
+          child: Text(
+            "تحدي شهر اغسطس",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        Spacer(),
         Padding(
           padding: padding15Bottom,
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.2,
             child: Padding(
               padding: padding15All,
               child: LimitedBox(
@@ -49,7 +71,7 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
             ),
           ),
         ),
-        // Spacer(),
+        Spacer(),
         Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -83,6 +105,7 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
             ),
           ],
         ),
+        Spacer(),
       ],
     );
   }
