@@ -116,6 +116,10 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
             },
             child: Text(
               'Save',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Colors.blueGrey.shade100),
             ),
           ),
         ],
