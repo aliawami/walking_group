@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:walking_group/core/network/firestore_service.dart';
 import 'package:walking_group/core/statics/statics.dart';
+import 'package:walking_group/features/profile/services/profile_service.dart';
 import 'package:walking_group/models/models.dart';
+
 
 part 'event_create_service.g.dart';
 
@@ -52,10 +54,12 @@ class EventCreateService extends _$EventCreateService {
     }
   }
 
-  Future<void> postEvent({required String title, required String desc}) async {
+  Future<void> postEvent({required String title, required String desc, required bool isMonthly}) async {
     final fireStoreProvider = ref.read(fireStoreServiceProvider);
+    final userProvider = ref.read(profileServiceProvider);
     final previous = await future;
-    final event = previous.copyWith(title: title, description: desc);
+    final event = previous.copyWith(
+        title: title, description: desc, createdAt: DateTime.now(), creatorId: userProvider.value == null ? '' : userProvider.value!.uid, type: isMonthly ? "monthly" : "short");
 
     try {
       final response =

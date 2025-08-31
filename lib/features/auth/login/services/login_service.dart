@@ -3,6 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:walking_group/features/auth/base/auth_keys.dart';
 import 'package:walking_group/features/auth/login/services/auth_service.dart';
 import 'dart:developer';
+
+import 'package:walking_group/features/profile/services/profile_service.dart';
 part 'login_service.g.dart';
 
 @riverpod
@@ -17,9 +19,8 @@ class LoginService extends _$LoginService {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (credential.user != null) {
-        ref
-            .read(authServiceProvider.notifier)
-            .assignUser(user: credential.user!);
+        ref.watch(profileServiceProvider.notifier);
+        // .assignUser(user: credential.user!);
         state = AsyncValue.data(AuthKeys.authorized);
       } else {
         state = AsyncValue.data(AuthKeys.unauthorized);

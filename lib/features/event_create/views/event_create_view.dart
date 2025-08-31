@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walking_group/components/components.dart';
-import 'package:walking_group/components/const_value/paddings/padding.dart';
 import 'package:walking_group/features/event_create/services/event_create_service.dart';
 import 'package:walking_group/models/models.dart';
 
@@ -19,11 +18,20 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
   final eventDateController = TextEditingController();
   final eventTimeController = TextEditingController();
   final eventDescriptionController = TextEditingController();
+  final locationController = TextEditingController();
+
+  final titleNode = FocusNode();
+  final dateNode = FocusNode();
+  final timeNode = FocusNode();
+  final descriptionNode = FocusNode();
+  final locationNode = FocusNode();
 
   bool isTitleEmpty = false;
   bool isDateEmpty = false;
   bool isTimeEmpty = false;
   bool isLoading = false;
+  bool isLocationEmpty = false;
+  bool isMonthly = true;
 
   @override
   void dispose() {
@@ -32,6 +40,13 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
     // eventDateController.dispose();
     // eventTimeController.dispose();
     // eventDescriptionController.dispose();
+    // locationController.dispose();
+
+    titleNode.dispose();
+    dateNode.dispose();
+    timeNode.dispose();
+    descriptionNode.dispose();
+    locationNode.dispose();
   }
 
   @override
@@ -92,25 +107,29 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
             onPressed: () {
               final date = eventDateController.text;
               final time = eventTimeController.text;
-              final title = eventTimeController.text;
+              final title = eventTitleController.text;
               final description = eventDescriptionController.text;
 
               if (eventCreateProv.value != null) {
                 // final title = eventCreateProv.value!.title;
                 // final description = eventCreateProv.value!.description;
-                if (date.isNotEmpty &&
-                    time.isNotEmpty &&
-                    title.isNotEmpty &&
-                    description.isNotEmpty) {
-                  // ref
-                  //     .read(eventCreateServiceProvider.notifier)
-                  //     .updateTitle(title: title);
-                  // ref
-                  //     .read(eventCreateServiceProvider.notifier)
-                  //     .updateDesc(desc: description);
-                  ref
-                      .read(eventCreateServiceProvider.notifier)
-                      .postEvent(title: title, desc: description);
+                if (isMonthly) {
+                  if (title.isNotEmpty) {
+                    ref.read(eventCreateServiceProvider.notifier).postEvent(
+                        title: title, desc: description, isMonthly: isMonthly);
+                  } else {
+                    setState(() {
+                      isTitleEmpty = true;
+                    });
+                  }
+                } else {
+                  if (date.isNotEmpty &&
+                      time.isNotEmpty &&
+                      title.isNotEmpty &&
+                      description.isNotEmpty) {
+                    ref.read(eventCreateServiceProvider.notifier).postEvent(
+                        title: title, desc: description, isMonthly: isMonthly);
+                  }
                 }
               }
             },
@@ -130,22 +149,95 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Row(
+                children: [
+                  Expanded(
+                      child: Padding(
+                    padding: padding8H,
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        side: !isMonthly
+                            ? null
+                            : WidgetStatePropertyAll(
+                                BorderSide(color: Colors.cyan)),
+                        foregroundColor: !isMonthly
+                            ? null
+                            : WidgetStatePropertyAll(
+                                Theme.of(context).colorScheme.secondary,
+                              ),
+                      ),
+                      onPressed: () {
+                        if (!isMonthly) {
+                          setState(() {
+                            isMonthly = true;
+                          });
+                        }
+                      },
+                      child: Text(
+                        "Monthly",
+                      ),
+                    ),
+                  )),
+                  Expanded(
+                      child: Padding(
+                    padding: padding8H,
+                    child: FilledButton(
+                      style: ButtonStyle(
+                        side: isMonthly
+                            ? null
+                            : WidgetStatePropertyAll(
+                                BorderSide(color: Colors.cyan)),
+                        foregroundColor: isMonthly
+                            ? null
+                            : WidgetStatePropertyAll(
+                                Theme.of(context).colorScheme.secondary,
+                              ),
+                      ),
+                      onPressed: () {
+                        if (isMonthly) {
+                          setState(() {
+                            isMonthly = false;
+                          });
+                        }
+                      },
+                      child: Text(
+                        "Short",
+                      ),
+                    ),
+                  )),
+                ],
+              ),
               const Text('Create Event'),
               RequiredTextField(
                 hint: 'Title',
                 controller: eventTitleController,
+                focusNode: titleNode,
+                checkIfEmpty: isTimeEmpty,
               ),
-              CalendarField(
-                label: 'Date',
-                controller: eventDateController,
-                hasError: isDateEmpty,
-                errorMessage: 'Please enter event Date',
-              ),
-              TimeField(
-                label: 'Time',
-                controller: eventTimeController,
-                hasError: isDateEmpty,
-                errorMessage: 'Please enter event time',
+              Offstage(
+                offstage: isMonthly,
+                child: Column(
+                  children: [
+                    CalendarField(
+                      label: 'Date',
+                      controller: eventDateController,
+                      hasError: isDateEmpty,
+                      errorMessage: 'Please enter event Date',
+                    ),
+                    TimeField(
+                      label: 'Time',
+                      controller: eventTimeController,
+                      hasError: isDateEmpty,
+                      errorMessage: 'Please enter event time',
+                    ),
+                    RequiredTextField(
+                      hint: "Location",
+                      controller: locationController,
+                      checkIfEmpty: isLocationEmpty,
+                      focusNode: locationNode,
+                    ),
+                  ],
+                ),
               ),
               LimitedBox(
                 child: TextField(
@@ -153,15 +245,7 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
                   maxLines: 5,
                   textAlignVertical: TextAlignVertical.top,
                   decoration: const InputDecoration(labelText: 'Description'),
-                ),
-              ),
-              Padding(
-                padding: padding10All,
-                child: FilledButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Location',
-                  ),
+                  focusNode: descriptionNode,
                 ),
               ),
             ],

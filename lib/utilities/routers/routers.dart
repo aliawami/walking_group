@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walking_group/features/event_create/views/event_create_view.dart';
-import 'package:walking_group/features/event_create/views/tab_view.dart';
+import 'package:walking_group/features/tab_view/tab_view.dart';
 import 'package:walking_group/features/features.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final routers = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/',
   navigatorKey: rootNavigatorKey,
   routes: [
     GoRoute(
       path: '/',
       parentNavigatorKey: rootNavigatorKey,
       pageBuilder: (context, state) =>
-          const NoTransitionPage(child: HomeView()),
+          const NoTransitionPage(child: LoginView()),
       routes: [
         GoRoute(
           path: '/signup',
@@ -46,16 +46,7 @@ final routers = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/profile',
-              builder: (context, state) => Scaffold(
-                appBar: AppBar(),
-                body: Center(
-                  child: Text(
-                    "Coming soon",
-                  ),
-                ),
-              ),
-            ),
+                path: '/profile', builder: (context, state) => ProfileView()),
           ],
         ),
       ],

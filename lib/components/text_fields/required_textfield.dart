@@ -35,6 +35,8 @@ class _RequiredTextFieldState extends State<RequiredTextField> {
       showObsecure = false;
     }
     if (widget.checkIfEmpty) {
+      isEmpty = widget.checkIfEmpty;
+    } else {
       isEmpty = false;
     }
 
