@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'event_create_service.dart';
+part of 'event_joining_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventCreateServiceHash() =>
-    r'2a5ad78bc517f7ac03b2b020f75455c00c6b0d68';
+String _$eventJoiningServiceHash() =>
+    r'd01f7f53d9dc97de5d010950741885a9dd852a84';
 
-/// See also [EventCreateService].
-@ProviderFor(EventCreateService)
-final eventCreateServiceProvider =
-    AutoDisposeAsyncNotifierProvider<EventCreateService, Events>.internal(
-  EventCreateService.new,
-  name: r'eventCreateServiceProvider',
+/// See also [EventJoiningService].
+@ProviderFor(EventJoiningService)
+final eventJoiningServiceProvider =
+    AutoDisposeAsyncNotifierProvider<EventJoiningService, Events>.internal(
+  EventJoiningService.new,
+  name: r'eventJoiningServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$eventCreateServiceHash,
+      : _$eventJoiningServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$EventCreateService = AutoDisposeAsyncNotifier<Events>;
+typedef _$EventJoiningService = AutoDisposeAsyncNotifier<Events>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

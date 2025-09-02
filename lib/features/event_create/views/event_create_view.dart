@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walking_group/components/components.dart';
+import 'package:walking_group/components/date_time/date_picker_view.dart';
 import 'package:walking_group/features/event_create/services/event_create_service.dart';
 import 'package:walking_group/models/models.dart';
 
@@ -33,21 +34,22 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
   bool isLocationEmpty = false;
   bool isMonthly = true;
 
-  @override
-  void dispose() {
-    super.dispose();
-    // eventTitleController.dispose();
-    // eventDateController.dispose();
-    // eventTimeController.dispose();
-    // eventDescriptionController.dispose();
-    // locationController.dispose();
 
-    titleNode.dispose();
-    dateNode.dispose();
-    timeNode.dispose();
-    descriptionNode.dispose();
-    locationNode.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   // eventTitleController.dispose();
+  //   // eventDateController.dispose();
+  //   // eventTimeController.dispose();
+  //   // eventDescriptionController.dispose();
+  //   // locationController.dispose();
+
+  //   titleNode.dispose();
+  //   dateNode.dispose();
+  //   timeNode.dispose();
+  //   descriptionNode.dispose();
+  //   locationNode.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -214,22 +216,20 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
                 focusNode: titleNode,
                 checkIfEmpty: isTimeEmpty,
               ),
+              Row(
+                children: [
+                  Text(
+                    "Event Date",
+                  ),
+                  DatePickerView(
+                    isMonthly: isMonthly,
+                  ),
+                ],
+              ),
               Offstage(
                 offstage: isMonthly,
                 child: Column(
                   children: [
-                    CalendarField(
-                      label: 'Date',
-                      controller: eventDateController,
-                      hasError: isDateEmpty,
-                      errorMessage: 'Please enter event Date',
-                    ),
-                    TimeField(
-                      label: 'Time',
-                      controller: eventTimeController,
-                      hasError: isDateEmpty,
-                      errorMessage: 'Please enter event time',
-                    ),
                     RequiredTextField(
                       hint: "Location",
                       controller: locationController,
@@ -239,6 +239,17 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
                   ],
                 ),
               ),
+              // Offstage(
+              //   offstage: !isMonthly,
+              //   child: DropdownMenu(
+              //     dropdownMenuEntries: _months
+              //         .asMap()
+              //         .keys
+              //         .map((index) => DropdownMenuEntry(
+              //             value: "$index", label: _months[index]))
+              //         .toList(),
+              //   ),
+              // ),
               LimitedBox(
                 child: TextField(
                   controller: eventDescriptionController,

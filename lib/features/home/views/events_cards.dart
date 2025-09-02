@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:walking_group/components/const_value/paddings/padding.dart';
+import 'package:walking_group/components/components.dart';
+import 'package:walking_group/models/models.dart';
 
 class EventsCard extends ConsumerStatefulWidget {
-  const EventsCard({super.key});
+  final Events? event;
+  const EventsCard({this.event, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _EventsCardState();
 }
 
 class _EventsCardState extends ConsumerState<EventsCard> {
+  late Events events;
+
+  @override
+  void initState() {
+    events = widget.event ?? Events(id: '', title: '', message: '', type: '');
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card.outlined(
@@ -30,7 +41,11 @@ class _EventsCardState extends ConsumerState<EventsCard> {
                 child: Padding(
                   padding: padding5V,
                   child: Text(
-                    "Weekly Event",
+                    events.type == null
+                        ? ''
+                        : events.type!.isEmpty
+                            ? ''
+                            : "${events.type!.toUpperCase()} Event",
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           // color: Colors.grey.shade900,
@@ -43,7 +58,11 @@ class _EventsCardState extends ConsumerState<EventsCard> {
               child: Padding(
                 padding: padding5V,
                 child: Text(
-                  "Friday",
+                  events.eventDate == null
+                      ? ''
+                      : events.type!.toLowerCase() == "monthly"
+                          ? events.eventDate!.monthName()
+                          : events.eventDate!.dayName(),
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
@@ -52,7 +71,8 @@ class _EventsCardState extends ConsumerState<EventsCard> {
               child: Padding(
                 padding: padding5V,
                 child: Text(
-                  "May, 9th 5:00 AM",
+                  events.eventDate == null ? '' :  events.type!.toLowerCase() == "monthly"
+                          ? events.eventDate!.dateToString() : events.eventDate!.dateTimeToString(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),

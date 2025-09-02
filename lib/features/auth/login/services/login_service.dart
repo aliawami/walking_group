@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:walking_group/features/auth/base/auth_keys.dart';
-import 'package:walking_group/features/auth/login/services/auth_service.dart';
+
 import 'dart:developer';
 
 import 'package:walking_group/features/profile/services/profile_service.dart';
