@@ -19,28 +19,49 @@ class EventJoiningService extends _$EventJoiningService with LoggingMixin {
     final user = FirebaseAuth.instance.currentUser;
     final fireStoreProvider = ref.read(fireStoreServiceProvider);
     final previous = await future;
-    String collection = fbMonthlyRankingDoc;
+    // String collection = fbMonthlyRankingDoc;
     String documentID = '';
     if (user != null) {
       documentID = user.uid;
     }
     if (previous.type != null) {
       if (previous.type!.toLowerCase() == short) {
-        collection = fbParticipentDoc;
+        // collection = fbParticipentDoc;
       }
     }
+    final participant = Participants(
+        userID: documentID,
+        userName: user!.email ?? '',
+        joinedAt: DateTime.now(),
+        lastUpdate: DateTime.now());
+
+    // fireStoreProvider.collection(fbParticipentDoc).doc(documentID).set(participant.toJson()).onError((e, stac){ state = AsyncValue.error(e, stac)});
 
     try {
-      final response =
-           fireStoreProvider.collection(collection).doc(documentID);
-      log(response.id);
-      log("${response.get()}");
-      if (response.id.isNotEmpty) {
-        state = AsyncValue.data(
-          previous.copyWith(
-            id: response.id,
-          ),
-        );
+      state = AsyncValue.loading();
+      await fireStoreProvider
+          .collection(fbEventDoc)
+          .doc(previous.id!)
+          .collection(fbParticipentDoc)
+          .doc(documentID)
+          .set(participant.toJson());
+
+      final doc = await fireStoreProvider
+          .collection(fbEventDoc)
+          .doc(previous.id!)
+          .collection(fbParticipentDoc)
+          .doc(documentID)
+          .get();
+      if (doc.data() != null) {
+        final participantData = Participants.fromJson(doc.data()!);
+        log(doc.id);
+        log("${doc.data()}");
+        if (doc.id.isNotEmpty) {
+          state = AsyncValue.data(
+            previous.copyWith(
+                participents: [...previous.participents, participantData]),
+          );
+        }
       }
     } on FirebaseException catch (e) {
       state = AsyncValue.error(e, StackTrace.current);

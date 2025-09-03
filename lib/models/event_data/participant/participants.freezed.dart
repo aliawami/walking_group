@@ -17,12 +17,13 @@ T _$identity<T>(T value) => value;
 mixin _$Participants {
   String? get id;
   String? get userID;
+  String? get userName;
+  int? get totalSteps;
+  int? get rank;
   @TimestampConverter()
   DateTime? get joinedAt;
-  int? get stepsRecord;
   @TimestampConverter()
-  DateTime? get submittionTime;
-  int? get rank;
+  DateTime? get lastUpdate;
 
   /// Create a copy of Participants
   /// with the given fields replaced by the non-null parameter values.
@@ -42,23 +43,25 @@ mixin _$Participants {
             other is Participants &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userID, userID) || other.userID == userID) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.totalSteps, totalSteps) ||
+                other.totalSteps == totalSteps) &&
+            (identical(other.rank, rank) || other.rank == rank) &&
             (identical(other.joinedAt, joinedAt) ||
                 other.joinedAt == joinedAt) &&
-            (identical(other.stepsRecord, stepsRecord) ||
-                other.stepsRecord == stepsRecord) &&
-            (identical(other.submittionTime, submittionTime) ||
-                other.submittionTime == submittionTime) &&
-            (identical(other.rank, rank) || other.rank == rank));
+            (identical(other.lastUpdate, lastUpdate) ||
+                other.lastUpdate == lastUpdate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, userID, joinedAt, stepsRecord, submittionTime, rank);
+  int get hashCode => Object.hash(runtimeType, id, userID, userName, totalSteps,
+      rank, joinedAt, lastUpdate);
 
   @override
   String toString() {
-    return 'Participants(id: $id, userID: $userID, joinedAt: $joinedAt, stepsRecord: $stepsRecord, submittionTime: $submittionTime, rank: $rank)';
+    return 'Participants(id: $id, userID: $userID, userName: $userName, totalSteps: $totalSteps, rank: $rank, joinedAt: $joinedAt, lastUpdate: $lastUpdate)';
   }
 }
 
@@ -71,10 +74,11 @@ abstract mixin class $ParticipantsCopyWith<$Res> {
   $Res call(
       {String? id,
       String? userID,
+      String? userName,
+      int? totalSteps,
+      int? rank,
       @TimestampConverter() DateTime? joinedAt,
-      int? stepsRecord,
-      @TimestampConverter() DateTime? submittionTime,
-      int? rank});
+      @TimestampConverter() DateTime? lastUpdate});
 }
 
 /// @nodoc
@@ -91,10 +95,11 @@ class _$ParticipantsCopyWithImpl<$Res> implements $ParticipantsCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? userID = freezed,
-    Object? joinedAt = freezed,
-    Object? stepsRecord = freezed,
-    Object? submittionTime = freezed,
+    Object? userName = freezed,
+    Object? totalSteps = freezed,
     Object? rank = freezed,
+    Object? joinedAt = freezed,
+    Object? lastUpdate = freezed,
   }) {
     return _then(_self.copyWith(
       id: freezed == id
@@ -105,22 +110,26 @@ class _$ParticipantsCopyWithImpl<$Res> implements $ParticipantsCopyWith<$Res> {
           ? _self.userID
           : userID // ignore: cast_nullable_to_non_nullable
               as String?,
-      joinedAt: freezed == joinedAt
-          ? _self.joinedAt
-          : joinedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      stepsRecord: freezed == stepsRecord
-          ? _self.stepsRecord
-          : stepsRecord // ignore: cast_nullable_to_non_nullable
+      userName: freezed == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalSteps: freezed == totalSteps
+          ? _self.totalSteps
+          : totalSteps // ignore: cast_nullable_to_non_nullable
               as int?,
-      submittionTime: freezed == submittionTime
-          ? _self.submittionTime
-          : submittionTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       rank: freezed == rank
           ? _self.rank
           : rank // ignore: cast_nullable_to_non_nullable
               as int?,
+      joinedAt: freezed == joinedAt
+          ? _self.joinedAt
+          : joinedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lastUpdate: freezed == lastUpdate
+          ? _self.lastUpdate
+          : lastUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -131,10 +140,11 @@ class _Participants implements Participants {
   _Participants(
       {this.id = '',
       this.userID = '',
+      this.userName = '',
+      this.totalSteps = 0,
+      this.rank = 0,
       @TimestampConverter() this.joinedAt,
-      this.stepsRecord = 0,
-      @TimestampConverter() this.submittionTime,
-      this.rank = 0});
+      @TimestampConverter() this.lastUpdate});
   factory _Participants.fromJson(Map<String, dynamic> json) =>
       _$ParticipantsFromJson(json);
 
@@ -145,17 +155,20 @@ class _Participants implements Participants {
   @JsonKey()
   final String? userID;
   @override
-  @TimestampConverter()
-  final DateTime? joinedAt;
+  @JsonKey()
+  final String? userName;
   @override
   @JsonKey()
-  final int? stepsRecord;
-  @override
-  @TimestampConverter()
-  final DateTime? submittionTime;
+  final int? totalSteps;
   @override
   @JsonKey()
   final int? rank;
+  @override
+  @TimestampConverter()
+  final DateTime? joinedAt;
+  @override
+  @TimestampConverter()
+  final DateTime? lastUpdate;
 
   /// Create a copy of Participants
   /// with the given fields replaced by the non-null parameter values.
@@ -179,23 +192,25 @@ class _Participants implements Participants {
             other is _Participants &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userID, userID) || other.userID == userID) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
+            (identical(other.totalSteps, totalSteps) ||
+                other.totalSteps == totalSteps) &&
+            (identical(other.rank, rank) || other.rank == rank) &&
             (identical(other.joinedAt, joinedAt) ||
                 other.joinedAt == joinedAt) &&
-            (identical(other.stepsRecord, stepsRecord) ||
-                other.stepsRecord == stepsRecord) &&
-            (identical(other.submittionTime, submittionTime) ||
-                other.submittionTime == submittionTime) &&
-            (identical(other.rank, rank) || other.rank == rank));
+            (identical(other.lastUpdate, lastUpdate) ||
+                other.lastUpdate == lastUpdate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, userID, joinedAt, stepsRecord, submittionTime, rank);
+  int get hashCode => Object.hash(runtimeType, id, userID, userName, totalSteps,
+      rank, joinedAt, lastUpdate);
 
   @override
   String toString() {
-    return 'Participants(id: $id, userID: $userID, joinedAt: $joinedAt, stepsRecord: $stepsRecord, submittionTime: $submittionTime, rank: $rank)';
+    return 'Participants(id: $id, userID: $userID, userName: $userName, totalSteps: $totalSteps, rank: $rank, joinedAt: $joinedAt, lastUpdate: $lastUpdate)';
   }
 }
 
@@ -210,10 +225,11 @@ abstract mixin class _$ParticipantsCopyWith<$Res>
   $Res call(
       {String? id,
       String? userID,
+      String? userName,
+      int? totalSteps,
+      int? rank,
       @TimestampConverter() DateTime? joinedAt,
-      int? stepsRecord,
-      @TimestampConverter() DateTime? submittionTime,
-      int? rank});
+      @TimestampConverter() DateTime? lastUpdate});
 }
 
 /// @nodoc
@@ -231,10 +247,11 @@ class __$ParticipantsCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? userID = freezed,
-    Object? joinedAt = freezed,
-    Object? stepsRecord = freezed,
-    Object? submittionTime = freezed,
+    Object? userName = freezed,
+    Object? totalSteps = freezed,
     Object? rank = freezed,
+    Object? joinedAt = freezed,
+    Object? lastUpdate = freezed,
   }) {
     return _then(_Participants(
       id: freezed == id
@@ -245,22 +262,26 @@ class __$ParticipantsCopyWithImpl<$Res>
           ? _self.userID
           : userID // ignore: cast_nullable_to_non_nullable
               as String?,
-      joinedAt: freezed == joinedAt
-          ? _self.joinedAt
-          : joinedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      stepsRecord: freezed == stepsRecord
-          ? _self.stepsRecord
-          : stepsRecord // ignore: cast_nullable_to_non_nullable
+      userName: freezed == userName
+          ? _self.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalSteps: freezed == totalSteps
+          ? _self.totalSteps
+          : totalSteps // ignore: cast_nullable_to_non_nullable
               as int?,
-      submittionTime: freezed == submittionTime
-          ? _self.submittionTime
-          : submittionTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       rank: freezed == rank
           ? _self.rank
           : rank // ignore: cast_nullable_to_non_nullable
               as int?,
+      joinedAt: freezed == joinedAt
+          ? _self.joinedAt
+          : joinedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      lastUpdate: freezed == lastUpdate
+          ? _self.lastUpdate
+          : lastUpdate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }

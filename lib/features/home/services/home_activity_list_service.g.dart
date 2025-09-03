@@ -7,7 +7,7 @@ part of 'home_activity_list_service.dart';
 // **************************************************************************
 
 String _$homeActivityListServiceHash() =>
-    r'048b647e1c1dc283666ef39ef924beefc361d090';
+    r'8e9a8e08edb85a6b3e0a63cf112907a55351f20d';
 
 /// See also [HomeActivityListService].
 @ProviderFor(HomeActivityListService)

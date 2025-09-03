@@ -38,6 +38,10 @@ final routers = GoRouter(
                   path: 'event_details',
                   builder: (context, state) => const CurrentEventDetailsView(),
                 ),
+                GoRoute(
+                  path: 'event_joining',
+                  builder: (context, state) => const EventJoiningView(),
+                ),
               ],
               // const HomeView(),
             ),

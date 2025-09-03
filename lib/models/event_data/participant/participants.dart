@@ -10,10 +10,11 @@ abstract class Participants with _$Participants {
   factory Participants({
     @Default('') String? id,
     @Default('') String? userID,
-    @TimestampConverter() DateTime? joinedAt,
-    @Default(0) int? stepsRecord,
-    @TimestampConverter() DateTime? submittionTime,
+    @Default('') String? userName,
+    @Default(0) int? totalSteps,
     @Default(0) int? rank,
+    @TimestampConverter() DateTime? joinedAt,
+    @TimestampConverter() DateTime? lastUpdate,
   }) = _Participants;
 
   factory Participants.fromJson(Map<String, dynamic> json) =>

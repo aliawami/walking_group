@@ -16,6 +16,7 @@ abstract class Events with _$Events {
     @Default('') String? description,
     @Default('') String? message,
     @Default('') String? creatorId,
+    @Default('') String? creatorName,
     @Default('') String? status,
     @Default('') String? location,
     @TimestampConverter() DateTime? eventDate,
@@ -23,6 +24,7 @@ abstract class Events with _$Events {
     @Default(1) int? month,
     @Default(2025) int? year,
     @TimestampConverter() DateTime? createdAt,
+    @Default([]) List<Participants> participents,
     // TimeOfDay? eventTime,
   }) = _Events;
 

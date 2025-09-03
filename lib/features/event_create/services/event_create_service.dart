@@ -28,14 +28,8 @@ class EventCreateService extends _$EventCreateService {
 
   Future<void> updateDate({required DateTime date}) async {
     final previous = await future;
-    // if (previous.eventDate == null) {
+
     state = AsyncValue.data(previous.copyWith(eventDate: date));
-    // } else {
-    //   final currentDate = previous.eventDate!;
-    //   final newDate = DateTime(date.year, date.month, date.day,
-    //       currentDate.hour, currentDate.minute);
-    //   state = AsyncValue.data(previous.copyWith(eventDate: newDate));
-    // }
   }
 
   Future<void> updateTime({required String time}) async {
@@ -65,7 +59,11 @@ class EventCreateService extends _$EventCreateService {
         description: desc,
         createdAt: DateTime.now(),
         creatorId: userProvider.value == null ? '' : userProvider.value!.uid,
-        type: isMonthly ? "monthly" : "short");
+        creatorName:
+            userProvider.value == null ? '' : userProvider.value!.displayName,
+        type: isMonthly ? "monthly" : "short",
+        month: previous.eventDate!.month,
+        year: previous.eventDate!.year);
 
     try {
       final response =

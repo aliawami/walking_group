@@ -10,24 +10,26 @@ _Participants _$ParticipantsFromJson(Map<String, dynamic> json) =>
     _Participants(
       id: json['id'] as String? ?? '',
       userID: json['userID'] as String? ?? '',
+      userName: json['userName'] as String? ?? '',
+      totalSteps: (json['totalSteps'] as num?)?.toInt() ?? 0,
+      rank: (json['rank'] as num?)?.toInt() ?? 0,
       joinedAt: _$JsonConverterFromJson<String, DateTime>(
           json['joinedAt'], const TimestampConverter().fromJson),
-      stepsRecord: (json['stepsRecord'] as num?)?.toInt() ?? 0,
-      submittionTime: _$JsonConverterFromJson<String, DateTime>(
-          json['submittionTime'], const TimestampConverter().fromJson),
-      rank: (json['rank'] as num?)?.toInt() ?? 0,
+      lastUpdate: _$JsonConverterFromJson<String, DateTime>(
+          json['lastUpdate'], const TimestampConverter().fromJson),
     );
 
 Map<String, dynamic> _$ParticipantsToJson(_Participants instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userID': instance.userID,
+      'userName': instance.userName,
+      'totalSteps': instance.totalSteps,
+      'rank': instance.rank,
       'joinedAt': _$JsonConverterToJson<String, DateTime>(
           instance.joinedAt, const TimestampConverter().toJson),
-      'stepsRecord': instance.stepsRecord,
-      'submittionTime': _$JsonConverterToJson<String, DateTime>(
-          instance.submittionTime, const TimestampConverter().toJson),
-      'rank': instance.rank,
+      'lastUpdate': _$JsonConverterToJson<String, DateTime>(
+          instance.lastUpdate, const TimestampConverter().toJson),
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

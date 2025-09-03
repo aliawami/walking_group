@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:walking_group/features/event_joining/services/event_joining_service.dart';
 import 'package:walking_group/features/home/services/home_activity_list_service.dart';
 import 'package:walking_group/features/home/views/events_cards.dart';
 import 'package:walking_group/models/models.dart';
@@ -33,8 +35,17 @@ class _UpcomingEventsState extends ConsumerState<UpcomingEvents> {
       AsyncData(:final value) => PageView(
           controller: _pageViewController,
           children: value
-              .map((event) => EventsCard(
-                    event: event,
+              .map((event) => GestureDetector(
+                    onTap: () {
+                      ref
+                          .read(eventJoiningServiceProvider.notifier)
+                          .selectedEvent(event: event);
+
+                      context.go("/home/event_joining");
+                    },
+                    child: EventsCard(
+                      event: event,
+                    ),
                   ))
               .toList(),
         ),

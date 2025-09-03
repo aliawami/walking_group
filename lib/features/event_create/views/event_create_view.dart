@@ -33,7 +33,7 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
   bool isLoading = false;
   bool isLocationEmpty = false;
   bool isMonthly = true;
-
+  bool initial = false;
 
   // @override
   // void dispose() {
@@ -55,6 +55,16 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
   Widget build(BuildContext context) {
     final AsyncValue<Events> eventCreateProv =
         ref.watch(eventCreateServiceProvider);
+
+    if (!initial) {
+      final newDate = DateTime.now();
+      final monthlyDate = newDate.copyWith(hour: 0, minute: 0, day: 1);
+
+      ref
+          .read(eventCreateServiceProvider.notifier)
+          .updateDate(date: monthlyDate);
+      initial = true;
+    }
     ref.listen(eventCreateServiceProvider, (pre, next) {
       if (next.value != null) {
         if (next.value!.id != null) {
@@ -171,6 +181,13 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
                       onPressed: () {
                         if (!isMonthly) {
                           setState(() {
+                            final newDate = DateTime.now();
+                            final monthlyDate =
+                                newDate.copyWith(hour: 0, minute: 0, day: 1);
+
+                            ref
+                                .read(eventCreateServiceProvider.notifier)
+                                .updateDate(date: monthlyDate);
                             isMonthly = true;
                           });
                         }
@@ -198,6 +215,11 @@ class _EventCreateViewState extends ConsumerState<EventCreateView> {
                       onPressed: () {
                         if (isMonthly) {
                           setState(() {
+                            final newDate = DateTime.now();
+
+                            ref
+                                .read(eventCreateServiceProvider.notifier)
+                                .updateDate(date: newDate);
                             isMonthly = false;
                           });
                         }

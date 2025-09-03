@@ -7,7 +7,7 @@ part of 'event_create_service.dart';
 // **************************************************************************
 
 String _$eventCreateServiceHash() =>
-    r'2a5ad78bc517f7ac03b2b020f75455c00c6b0d68';
+    r'7b6357b9c308372c2e6c40a2d7de766b3321b739';
 
 /// See also [EventCreateService].
 @ProviderFor(EventCreateService)

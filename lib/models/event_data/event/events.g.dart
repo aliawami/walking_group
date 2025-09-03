@@ -13,6 +13,7 @@ _Events _$EventsFromJson(Map<String, dynamic> json) => _Events(
       description: json['description'] as String? ?? '',
       message: json['message'] as String? ?? '',
       creatorId: json['creatorId'] as String? ?? '',
+      creatorName: json['creatorName'] as String? ?? '',
       status: json['status'] as String? ?? '',
       location: json['location'] as String? ?? '',
       eventDate: _$JsonConverterFromJson<String, DateTime>(
@@ -22,6 +23,10 @@ _Events _$EventsFromJson(Map<String, dynamic> json) => _Events(
       year: (json['year'] as num?)?.toInt() ?? 2025,
       createdAt: _$JsonConverterFromJson<String, DateTime>(
           json['createdAt'], const TimestampConverter().fromJson),
+      participents: (json['participents'] as List<dynamic>?)
+              ?.map((e) => Participants.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$EventsToJson(_Events instance) => <String, dynamic>{
@@ -31,6 +36,7 @@ Map<String, dynamic> _$EventsToJson(_Events instance) => <String, dynamic>{
       'description': instance.description,
       'message': instance.message,
       'creatorId': instance.creatorId,
+      'creatorName': instance.creatorName,
       'status': instance.status,
       'location': instance.location,
       'eventDate': _$JsonConverterToJson<String, DateTime>(
@@ -40,6 +46,7 @@ Map<String, dynamic> _$EventsToJson(_Events instance) => <String, dynamic>{
       'year': instance.year,
       'createdAt': _$JsonConverterToJson<String, DateTime>(
           instance.createdAt, const TimestampConverter().toJson),
+      'participents': instance.participents,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(

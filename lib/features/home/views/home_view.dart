@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walking_group/components/components.dart';
+import 'package:walking_group/features/event_joining/services/event_joining_service.dart';
 import 'package:walking_group/features/home/views/home_activate_view.dart';
 import 'package:walking_group/features/home/views/upcoming_events.dart';
 
@@ -15,6 +16,7 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
+    ref.watch(eventJoiningServiceProvider);
     // ref.listen(pedestrianServiceProvider, (pre, next) {
     //   if (next.value != null) {
     //     next.value!.status;

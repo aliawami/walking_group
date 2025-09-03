@@ -21,6 +21,7 @@ mixin _$Events {
   String? get description;
   String? get message;
   String? get creatorId;
+  String? get creatorName;
   String? get status;
   String? get location;
   @TimestampConverter()
@@ -30,6 +31,7 @@ mixin _$Events {
   int? get year;
   @TimestampConverter()
   DateTime? get createdAt;
+  List<Participants> get participents;
 
   /// Create a copy of Events
   /// with the given fields replaced by the non-null parameter values.
@@ -54,6 +56,8 @@ mixin _$Events {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.creatorId, creatorId) ||
                 other.creatorId == creatorId) &&
+            (identical(other.creatorName, creatorName) ||
+                other.creatorName == creatorName) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.location, location) ||
                 other.location == location) &&
@@ -64,7 +68,9 @@ mixin _$Events {
             (identical(other.month, month) || other.month == month) &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            const DeepCollectionEquality()
+                .equals(other.participents, participents));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -77,17 +83,19 @@ mixin _$Events {
       description,
       message,
       creatorId,
+      creatorName,
       status,
       location,
       eventDate,
       distance,
       month,
       year,
-      createdAt);
+      createdAt,
+      const DeepCollectionEquality().hash(participents));
 
   @override
   String toString() {
-    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, createdAt: $createdAt)';
+    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, creatorName: $creatorName, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, createdAt: $createdAt, participents: $participents)';
   }
 }
 
@@ -103,13 +111,15 @@ abstract mixin class $EventsCopyWith<$Res> {
       String? description,
       String? message,
       String? creatorId,
+      String? creatorName,
       String? status,
       String? location,
       @TimestampConverter() DateTime? eventDate,
       int? distance,
       int? month,
       int? year,
-      @TimestampConverter() DateTime? createdAt});
+      @TimestampConverter() DateTime? createdAt,
+      List<Participants> participents});
 }
 
 /// @nodoc
@@ -130,6 +140,7 @@ class _$EventsCopyWithImpl<$Res> implements $EventsCopyWith<$Res> {
     Object? description = freezed,
     Object? message = freezed,
     Object? creatorId = freezed,
+    Object? creatorName = freezed,
     Object? status = freezed,
     Object? location = freezed,
     Object? eventDate = freezed,
@@ -137,6 +148,7 @@ class _$EventsCopyWithImpl<$Res> implements $EventsCopyWith<$Res> {
     Object? month = freezed,
     Object? year = freezed,
     Object? createdAt = freezed,
+    Object? participents = null,
   }) {
     return _then(_self.copyWith(
       id: freezed == id
@@ -162,6 +174,10 @@ class _$EventsCopyWithImpl<$Res> implements $EventsCopyWith<$Res> {
       creatorId: freezed == creatorId
           ? _self.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      creatorName: freezed == creatorName
+          ? _self.creatorName
+          : creatorName // ignore: cast_nullable_to_non_nullable
               as String?,
       status: freezed == status
           ? _self.status
@@ -191,6 +207,10 @@ class _$EventsCopyWithImpl<$Res> implements $EventsCopyWith<$Res> {
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      participents: null == participents
+          ? _self.participents
+          : participents // ignore: cast_nullable_to_non_nullable
+              as List<Participants>,
     ));
   }
 }
@@ -205,13 +225,16 @@ class _Events implements Events {
       this.description = '',
       this.message = '',
       this.creatorId = '',
+      this.creatorName = '',
       this.status = '',
       this.location = '',
       @TimestampConverter() this.eventDate,
       this.distance = 1,
       this.month = 1,
       this.year = 2025,
-      @TimestampConverter() this.createdAt});
+      @TimestampConverter() this.createdAt,
+      final List<Participants> participents = const []})
+      : _participents = participents;
   factory _Events.fromJson(Map<String, dynamic> json) => _$EventsFromJson(json);
 
   @override
@@ -234,6 +257,9 @@ class _Events implements Events {
   final String? creatorId;
   @override
   @JsonKey()
+  final String? creatorName;
+  @override
+  @JsonKey()
   final String? status;
   @override
   @JsonKey()
@@ -253,6 +279,14 @@ class _Events implements Events {
   @override
   @TimestampConverter()
   final DateTime? createdAt;
+  final List<Participants> _participents;
+  @override
+  @JsonKey()
+  List<Participants> get participents {
+    if (_participents is EqualUnmodifiableListView) return _participents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_participents);
+  }
 
   /// Create a copy of Events
   /// with the given fields replaced by the non-null parameter values.
@@ -282,6 +316,8 @@ class _Events implements Events {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.creatorId, creatorId) ||
                 other.creatorId == creatorId) &&
+            (identical(other.creatorName, creatorName) ||
+                other.creatorName == creatorName) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.location, location) ||
                 other.location == location) &&
@@ -292,7 +328,9 @@ class _Events implements Events {
             (identical(other.month, month) || other.month == month) &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            const DeepCollectionEquality()
+                .equals(other._participents, _participents));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -305,17 +343,19 @@ class _Events implements Events {
       description,
       message,
       creatorId,
+      creatorName,
       status,
       location,
       eventDate,
       distance,
       month,
       year,
-      createdAt);
+      createdAt,
+      const DeepCollectionEquality().hash(_participents));
 
   @override
   String toString() {
-    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, createdAt: $createdAt)';
+    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, creatorName: $creatorName, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, createdAt: $createdAt, participents: $participents)';
   }
 }
 
@@ -332,13 +372,15 @@ abstract mixin class _$EventsCopyWith<$Res> implements $EventsCopyWith<$Res> {
       String? description,
       String? message,
       String? creatorId,
+      String? creatorName,
       String? status,
       String? location,
       @TimestampConverter() DateTime? eventDate,
       int? distance,
       int? month,
       int? year,
-      @TimestampConverter() DateTime? createdAt});
+      @TimestampConverter() DateTime? createdAt,
+      List<Participants> participents});
 }
 
 /// @nodoc
@@ -359,6 +401,7 @@ class __$EventsCopyWithImpl<$Res> implements _$EventsCopyWith<$Res> {
     Object? description = freezed,
     Object? message = freezed,
     Object? creatorId = freezed,
+    Object? creatorName = freezed,
     Object? status = freezed,
     Object? location = freezed,
     Object? eventDate = freezed,
@@ -366,6 +409,7 @@ class __$EventsCopyWithImpl<$Res> implements _$EventsCopyWith<$Res> {
     Object? month = freezed,
     Object? year = freezed,
     Object? createdAt = freezed,
+    Object? participents = null,
   }) {
     return _then(_Events(
       id: freezed == id
@@ -391,6 +435,10 @@ class __$EventsCopyWithImpl<$Res> implements _$EventsCopyWith<$Res> {
       creatorId: freezed == creatorId
           ? _self.creatorId
           : creatorId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      creatorName: freezed == creatorName
+          ? _self.creatorName
+          : creatorName // ignore: cast_nullable_to_non_nullable
               as String?,
       status: freezed == status
           ? _self.status
@@ -420,6 +468,10 @@ class __$EventsCopyWithImpl<$Res> implements _$EventsCopyWith<$Res> {
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      participents: null == participents
+          ? _self._participents
+          : participents // ignore: cast_nullable_to_non_nullable
+              as List<Participants>,
     ));
   }
 }
