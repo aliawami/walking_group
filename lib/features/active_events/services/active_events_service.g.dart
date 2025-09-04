@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'active_event_service.dart';
+part of 'active_events_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$activeEventServiceHash() =>
-    r'3e97b9e94fa6680e17245dc7e3eb9bf9392d1cdf';
+String _$activeEventsServiceHash() =>
+    r'1209e50a4c8762d3138f14a249fb3e50b8a47a4d';
 
-/// See also [ActiveEventService].
-@ProviderFor(ActiveEventService)
-final activeEventServiceProvider = AutoDisposeAsyncNotifierProvider<
-    ActiveEventService, EventDailyLogs>.internal(
-  ActiveEventService.new,
-  name: r'activeEventServiceProvider',
+/// See also [ActiveEventsService].
+@ProviderFor(ActiveEventsService)
+final activeEventsServiceProvider = AutoDisposeAsyncNotifierProvider<
+    ActiveEventsService, List<EventDailyLogs>>.internal(
+  ActiveEventsService.new,
+  name: r'activeEventsServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$activeEventServiceHash,
+      : _$activeEventsServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ActiveEventService = AutoDisposeAsyncNotifier<EventDailyLogs>;
+typedef _$ActiveEventsService = AutoDisposeAsyncNotifier<List<EventDailyLogs>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
