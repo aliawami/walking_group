@@ -31,9 +31,9 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: ListView(
-                        children: value.currentEvents == null
+                        children: value.activeEvents == null
                             ? []
-                            : value.currentEvents!
+                            : value.activeEvents!
                                 .map((event) => Text(event.title ?? ''))
                                 .toList(),
                       ),

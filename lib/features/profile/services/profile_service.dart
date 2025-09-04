@@ -13,27 +13,15 @@ class ProfileService extends _$ProfileService with LoggingMixin {
   @override
   Future<UserData?> build() async {
     final userData = await fetchEvents();
-    // final fireStore = ref.read(fireStoreServiceProvider);
-    // fireStore
-    //     .collectionGroup(fbParticipentDoc)
-    //     .where("userID", isEqualTo: user!.uid)
-    //     .get()
-    //     .then(
-    //       (res) => log("res ${res.docs}"),
-    //       onError: (e) => log("Error completing: $e"),
-    //     );
-    // final data = events.docs;
+
     return userData;
   }
-
-  // Future<void> assignUser({required User user}) async {
-  //   state = AsyncValue.data(user);
-  // }
 
   Future<UserData> fetchEvents() async {
     final user = FirebaseAuth.instance.currentUser;
     List<Events> completedEvents = [];
-    List<Events> currentEvents = [];
+    List<Events> upcomingEvents = [];
+    List<Events> activeEvents = [];
     if (user != null) {
       final userId = user.uid;
 
@@ -59,8 +47,11 @@ class ProfileService extends _$ProfileService with LoggingMixin {
               if (event.status!.toLowerCase() ==
                   EventStatus.completed.name.toLowerCase()) {
                 completedEvents.add(event);
+              } else if (event.status!.toLowerCase() ==
+                  EventStatus.active.name.toLowerCase()) {
+                activeEvents.add(event);
               } else {
-                currentEvents.add(event);
+                upcomingEvents.add(event);
               }
             }
           }
@@ -69,7 +60,10 @@ class ProfileService extends _$ProfileService with LoggingMixin {
       });
     }
     return UserData(
-        user: user, eventHisoty: completedEvents, currentEvents: currentEvents);
+        user: user,
+        completedEvents: completedEvents,
+        upcomingEvents: upcomingEvents,
+        activeEvents: activeEvents);
   }
 }
 

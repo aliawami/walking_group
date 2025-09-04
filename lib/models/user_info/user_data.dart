@@ -3,9 +3,15 @@ import 'package:walking_group/models/models.dart';
 
 class UserData {
   User? user;
-  List<Events>? eventHisoty;
-  List<Events>? currentEvents;
+  List<Events>? completedEvents;
+  List<Events>? upcomingEvents;
+  List<Events>? activeEvents;
   List<String>? rewards;
 
-  UserData({this.user, this.eventHisoty, this.currentEvents, this.rewards});
+  UserData(
+      {this.user,
+      this.completedEvents,
+      this.activeEvents,
+      this.upcomingEvents,
+      this.rewards});
 }
