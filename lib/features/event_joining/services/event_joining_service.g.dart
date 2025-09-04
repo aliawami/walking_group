@@ -7,7 +7,7 @@ part of 'event_joining_service.dart';
 // **************************************************************************
 
 String _$eventJoiningServiceHash() =>
-    r'95f27247053f15af64ae07a4e68e764a74e94711';
+    r'01eb4e8e3742eca73f5326a28eedbb0c97b1dc22';
 
 /// See also [EventJoiningService].
 @ProviderFor(EventJoiningService)

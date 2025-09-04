@@ -19,7 +19,7 @@ class LoginService extends _$LoginService {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (credential.user != null) {
-        ref.watch(profileServiceProvider.notifier);
+        ref.watch(profileServiceProvider);
         // .assignUser(user: credential.user!);
         state = AsyncValue.data(AuthKeys.authorized);
       } else {

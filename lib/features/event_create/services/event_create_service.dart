@@ -58,9 +58,10 @@ class EventCreateService extends _$EventCreateService {
         title: title,
         description: desc,
         createdAt: DateTime.now(),
-        creatorId: userProvider.value == null ? '' : userProvider.value!.uid,
+        creatorId:
+            userProvider.value == null ? '' : userProvider.value!.user!.uid,
         creatorName:
-            userProvider.value == null ? '' : userProvider.value!.displayName,
+            userProvider.value == null ? '' : userProvider.value!.user!.email,
         type: isMonthly ? "monthly" : "short",
         month: previous.eventDate!.month,
         year: previous.eventDate!.year);
