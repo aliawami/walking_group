@@ -21,6 +21,7 @@ _Events _$EventsFromJson(Map<String, dynamic> json) => _Events(
       distance: (json['distance'] as num?)?.toInt() ?? 1,
       month: (json['month'] as num?)?.toInt() ?? 1,
       year: (json['year'] as num?)?.toInt() ?? 2025,
+      totalParticipants: (json['totalParticipants'] as num?)?.toInt() ?? 0,
       createdAt: _$JsonConverterFromJson<String, DateTime>(
           json['createdAt'], const TimestampConverter().fromJson),
       participents: (json['participents'] as List<dynamic>?)
@@ -44,6 +45,7 @@ Map<String, dynamic> _$EventsToJson(_Events instance) => <String, dynamic>{
       'distance': instance.distance,
       'month': instance.month,
       'year': instance.year,
+      'totalParticipants': instance.totalParticipants,
       'createdAt': _$JsonConverterToJson<String, DateTime>(
           instance.createdAt, const TimestampConverter().toJson),
       'participents': instance.participents,

@@ -1,20 +1,22 @@
 import 'package:cm_pedometer/cm_pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:walking_group/models/models.dart';
 import 'package:walking_group/waling_group.dart';
 
-import '../base/event_activity_keys.dart';
-import 'step_counter_view.dart';
+import '../../home/base/event_activity_keys.dart';
+import 'active_step_counter_view.dart';
+import 'active_title_info_card.dart';
 
-
-class HomeActivateView extends ConsumerStatefulWidget {
-  const HomeActivateView({super.key});
+class ActiveActivityView extends ConsumerStatefulWidget {
+  final ActiveEventData event;
+  const ActiveActivityView({required this.event, super.key});
 
   @override
-  ConsumerState<HomeActivateView> createState() => _HomeActivateViewState();
+  ConsumerState<ActiveActivityView> createState() => _HomeActivateViewState();
 }
 
-class _HomeActivateViewState extends ConsumerState<HomeActivateView>
+class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
     with LoggingMixin {
   late Stream<CMPedometerData> _stepCounter;
   int _steps = 0;
@@ -52,7 +54,7 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
             ),
           ),
           child: Text(
-            "تحدي شهر اغسطس",
+            widget.event.event == null ? '' : widget.event.event!.title ?? '',
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -64,7 +66,7 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
             child: Padding(
               padding: padding15All,
               child: LimitedBox(
-                child: StepCounterView(
+                child: ActiveStepCounterView(
                   steps: _steps,
                 ),
               ),
@@ -78,9 +80,9 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
             Flexible(
               flex: 1,
               fit: FlexFit.tight,
-              child: TitleInfoCard(
+              child: ActiveTitleInfoCard(
                 title: EventActivityKeys.rank.arName(),
-                info: "11th",
+                info: widget.event.participant == null ? "0" : "${widget.event.participant!.rank ?? 0}",
               ),
             ),
             // ActivityCard(
@@ -92,7 +94,7 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
               fit: FlexFit.loose,
               child: TitleInfoCard(
                 title: EventActivityKeys.particiants.arName(),
-                info: "24",
+                info: widget.event.event == null ? "0" : "${widget.event.event!.totalParticipants ?? 0}",
               ),
             ),
             Flexible(
@@ -100,7 +102,7 @@ class _HomeActivateViewState extends ConsumerState<HomeActivateView>
               fit: FlexFit.loose,
               child: TitleInfoCard(
                 title: EventActivityKeys.totalsteps.arName(),
-                info: "3000",
+                info: widget.event.participant == null ? "0" : "${widget.event.participant!.totalSteps ?? 0}",
               ),
             ),
           ],

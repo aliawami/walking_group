@@ -29,6 +29,7 @@ mixin _$Events {
   int? get distance;
   int? get month;
   int? get year;
+  int? get totalParticipants;
   @TimestampConverter()
   DateTime? get createdAt;
   List<Participants> get participents;
@@ -67,6 +68,8 @@ mixin _$Events {
                 other.distance == distance) &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.year, year) || other.year == year) &&
+            (identical(other.totalParticipants, totalParticipants) ||
+                other.totalParticipants == totalParticipants) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
@@ -90,12 +93,13 @@ mixin _$Events {
       distance,
       month,
       year,
+      totalParticipants,
       createdAt,
       const DeepCollectionEquality().hash(participents));
 
   @override
   String toString() {
-    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, creatorName: $creatorName, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, createdAt: $createdAt, participents: $participents)';
+    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, creatorName: $creatorName, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, totalParticipants: $totalParticipants, createdAt: $createdAt, participents: $participents)';
   }
 }
 
@@ -118,6 +122,7 @@ abstract mixin class $EventsCopyWith<$Res> {
       int? distance,
       int? month,
       int? year,
+      int? totalParticipants,
       @TimestampConverter() DateTime? createdAt,
       List<Participants> participents});
 }
@@ -147,6 +152,7 @@ class _$EventsCopyWithImpl<$Res> implements $EventsCopyWith<$Res> {
     Object? distance = freezed,
     Object? month = freezed,
     Object? year = freezed,
+    Object? totalParticipants = freezed,
     Object? createdAt = freezed,
     Object? participents = null,
   }) {
@@ -203,6 +209,10 @@ class _$EventsCopyWithImpl<$Res> implements $EventsCopyWith<$Res> {
           ? _self.year
           : year // ignore: cast_nullable_to_non_nullable
               as int?,
+      totalParticipants: freezed == totalParticipants
+          ? _self.totalParticipants
+          : totalParticipants // ignore: cast_nullable_to_non_nullable
+              as int?,
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -232,6 +242,7 @@ class _Events implements Events {
       this.distance = 1,
       this.month = 1,
       this.year = 2025,
+      this.totalParticipants = 0,
       @TimestampConverter() this.createdAt,
       final List<Participants> participents = const []})
       : _participents = participents;
@@ -276,6 +287,9 @@ class _Events implements Events {
   @override
   @JsonKey()
   final int? year;
+  @override
+  @JsonKey()
+  final int? totalParticipants;
   @override
   @TimestampConverter()
   final DateTime? createdAt;
@@ -327,6 +341,8 @@ class _Events implements Events {
                 other.distance == distance) &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.year, year) || other.year == year) &&
+            (identical(other.totalParticipants, totalParticipants) ||
+                other.totalParticipants == totalParticipants) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             const DeepCollectionEquality()
@@ -350,12 +366,13 @@ class _Events implements Events {
       distance,
       month,
       year,
+      totalParticipants,
       createdAt,
       const DeepCollectionEquality().hash(_participents));
 
   @override
   String toString() {
-    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, creatorName: $creatorName, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, createdAt: $createdAt, participents: $participents)';
+    return 'Events(id: $id, type: $type, title: $title, description: $description, message: $message, creatorId: $creatorId, creatorName: $creatorName, status: $status, location: $location, eventDate: $eventDate, distance: $distance, month: $month, year: $year, totalParticipants: $totalParticipants, createdAt: $createdAt, participents: $participents)';
   }
 }
 
@@ -379,6 +396,7 @@ abstract mixin class _$EventsCopyWith<$Res> implements $EventsCopyWith<$Res> {
       int? distance,
       int? month,
       int? year,
+      int? totalParticipants,
       @TimestampConverter() DateTime? createdAt,
       List<Participants> participents});
 }
@@ -408,6 +426,7 @@ class __$EventsCopyWithImpl<$Res> implements _$EventsCopyWith<$Res> {
     Object? distance = freezed,
     Object? month = freezed,
     Object? year = freezed,
+    Object? totalParticipants = freezed,
     Object? createdAt = freezed,
     Object? participents = null,
   }) {
@@ -463,6 +482,10 @@ class __$EventsCopyWithImpl<$Res> implements _$EventsCopyWith<$Res> {
       year: freezed == year
           ? _self.year
           : year // ignore: cast_nullable_to_non_nullable
+              as int?,
+      totalParticipants: freezed == totalParticipants
+          ? _self.totalParticipants
+          : totalParticipants // ignore: cast_nullable_to_non_nullable
               as int?,
       createdAt: freezed == createdAt
           ? _self.createdAt

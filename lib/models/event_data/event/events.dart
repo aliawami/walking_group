@@ -23,8 +23,10 @@ abstract class Events with _$Events {
     @Default(1) int? distance,
     @Default(1) int? month,
     @Default(2025) int? year,
+    @Default(0) int? totalParticipants,
     @TimestampConverter() DateTime? createdAt,
     @Default([]) List<Participants> participents,
+
     // TimeOfDay? eventTime,
   }) = _Events;
 

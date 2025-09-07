@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:walking_group/components/components.dart';
+import 'package:walking_group/features/active_events/views/active_activities_paging_view.dart';
 import 'package:walking_group/features/event_joining/services/event_joining_service.dart';
-import 'package:walking_group/features/home/views/home_activate_view.dart';
 import 'package:walking_group/features/home/views/upcoming_events.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -51,7 +51,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               flex: 1,
               child: Padding(
                 padding: padding8V,
-                child: HomeActivateView(),
+                child: ActiveActivitiesPagingView(),
               ),
             ),
           ],

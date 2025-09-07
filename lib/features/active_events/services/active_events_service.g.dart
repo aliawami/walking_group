@@ -7,12 +7,12 @@ part of 'active_events_service.dart';
 // **************************************************************************
 
 String _$activeEventsServiceHash() =>
-    r'1209e50a4c8762d3138f14a249fb3e50b8a47a4d';
+    r'fbe82bd16c20828371aac8418c343c4646e81592';
 
 /// See also [ActiveEventsService].
 @ProviderFor(ActiveEventsService)
-final activeEventsServiceProvider = AutoDisposeAsyncNotifierProvider<
-    ActiveEventsService, List<EventDailyLogs>>.internal(
+final activeEventsServiceProvider =
+    AsyncNotifierProvider<ActiveEventsService, List<ActiveEventData>>.internal(
   ActiveEventsService.new,
   name: r'activeEventsServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final activeEventsServiceProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$ActiveEventsService = AutoDisposeAsyncNotifier<List<EventDailyLogs>>;
+typedef _$ActiveEventsService = AsyncNotifier<List<ActiveEventData>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

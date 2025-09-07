@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:walking_group/features/active_events/services/active_events_service.dart';
 import 'package:walking_group/models/models.dart';
 import 'package:walking_group/models/user_info/user_data.dart';
 import 'package:walking_group/waling_group.dart';
@@ -21,6 +22,8 @@ class ProfileService extends _$ProfileService with LoggingMixin {
     List<Events> completedEvents = [];
     List<Events> upcomingEvents = [];
     List<Events> activeEvents = [];
+
+    List<ActiveEventData> activeEventsData = [];
     if (user != null) {
       final userId = user.uid;
 
@@ -30,9 +33,12 @@ class ProfileService extends _$ProfileService with LoggingMixin {
           .get()
           .then((querySnapshot) {
         List<String> participatedEventIds = [];
+        ActiveEventData eventData = ActiveEventData();
         for (var doc in querySnapshot.docs) {
           final eventId = doc.reference.parent.parent!.id;
           participatedEventIds.add(eventId);
+          final participant = Participants.fromJson(doc.data());
+          eventData.participant = participant;
         }
 
         FirebaseFirestore.instance
@@ -49,15 +55,20 @@ class ProfileService extends _$ProfileService with LoggingMixin {
               } else if (event.status!.toLowerCase() ==
                   EventStatus.active.name.toLowerCase()) {
                 activeEvents.add(event);
+                eventData.event = event;
+                activeEventsData.add(eventData);
               } else {
                 upcomingEvents.add(event);
               }
             }
           }
           // Process event documents
+          ref.read(activeEventsServiceProvider.notifier).updateList(activeEventsData);
         });
       });
     }
+    
+
     return UserData(
         user: user,
         completedEvents: completedEvents,

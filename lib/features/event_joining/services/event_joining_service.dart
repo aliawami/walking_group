@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:walking_group/core/network/firestore_service.dart';
@@ -45,6 +46,11 @@ class EventJoiningService extends _$EventJoiningService with LoggingMixin {
           .collection(fbParticipentDoc)
           .doc(documentID)
           .set(participant.toJson());
+
+      await fireStoreProvider
+          .collection(fbEventDoc)
+          .doc(previous.id!)
+          .update({"totalParticipants": FieldValue.increment(1)});
 
       final doc = await fireStoreProvider
           .collection(fbEventDoc)

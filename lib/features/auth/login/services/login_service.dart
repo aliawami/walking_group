@@ -5,6 +5,8 @@ import 'package:walking_group/features/auth/base/auth_keys.dart';
 import 'dart:developer';
 
 import 'package:walking_group/features/profile/services/profile_service.dart';
+
+import '../../../active_events/services/active_events_service.dart';
 part 'login_service.g.dart';
 
 @riverpod
@@ -20,6 +22,7 @@ class LoginService extends _$LoginService {
           .signInWithEmailAndPassword(email: email, password: password);
       if (credential.user != null) {
         ref.watch(profileServiceProvider);
+        ref.watch(activeEventsServiceProvider);
         // .assignUser(user: credential.user!);
         state = AsyncValue.data(AuthKeys.authorized);
       } else {
