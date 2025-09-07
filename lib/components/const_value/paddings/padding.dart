@@ -19,6 +19,7 @@ const padding15All = EdgeInsets.all(15.0);
 const padding15V = EdgeInsets.symmetric(vertical: 15.0);
 const padding15H = EdgeInsets.symmetric(horizontal: 15.0);
 const padding15Bottom = EdgeInsets.only(bottom: 15.0);
+const padding15Top = EdgeInsets.only(top: 15.0);
 
 const padding18All = EdgeInsets.all(18.0);
 const padding18V = EdgeInsets.symmetric(vertical: 18.0);

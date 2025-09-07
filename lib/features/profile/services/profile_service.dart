@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:walking_group/core/network/firestore_service.dart';
 import 'package:walking_group/models/models.dart';
 import 'package:walking_group/models/user_info/user_data.dart';
 import 'package:walking_group/waling_group.dart';
