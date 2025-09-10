@@ -1,4 +1,3 @@
-import 'package:cm_pedometer/cm_pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:walking_group/models/models.dart';
@@ -18,16 +17,17 @@ class ActiveActivityView extends ConsumerStatefulWidget {
 
 class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
     with LoggingMixin {
-  late Stream<CMPedometerData> _stepCounter;
   int _steps = 0;
 
   @override
   void initState() {
-    final today = DateTime.now();
-    final startDate = today.copyWith(
-        hour: 0, minute: 0, second: 0, microsecond: 0, millisecond: 0);
-    _stepCounter = CMPedometer.stepCounterFirstStream(from: startDate);
-    _stepCounter.listen(onStepCount).onError(onStepCountError);
+    if (widget.event.event != null) {
+      if (widget.event.event!.type != null) {
+        if (widget.event.event!.type!.toLowerCase() ==
+            EventsType.monthly.name.toLowerCase()) {}
+      }
+    }
+
     super.initState();
   }
 
@@ -67,7 +67,8 @@ class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
               padding: padding15All,
               child: LimitedBox(
                 child: ActiveStepCounterView(
-                  steps: _steps,
+                  event: widget.event.event ?? Events(),
+                  // steps: _steps,
                 ),
               ),
             ),
@@ -82,7 +83,9 @@ class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
               fit: FlexFit.tight,
               child: ActiveTitleInfoCard(
                 title: EventActivityKeys.rank.arName(),
-                info: widget.event.participant == null ? "0" : "${widget.event.participant!.rank ?? 0}",
+                info: widget.event.participant == null
+                    ? "0"
+                    : "${widget.event.participant!.rank ?? 0}",
               ),
             ),
             // ActivityCard(
@@ -94,7 +97,9 @@ class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
               fit: FlexFit.loose,
               child: TitleInfoCard(
                 title: EventActivityKeys.particiants.arName(),
-                info: widget.event.event == null ? "0" : "${widget.event.event!.totalParticipants ?? 0}",
+                info: widget.event.event == null
+                    ? "0"
+                    : "${widget.event.event!.totalParticipants ?? 0}",
               ),
             ),
             Flexible(
@@ -102,7 +107,9 @@ class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
               fit: FlexFit.loose,
               child: TitleInfoCard(
                 title: EventActivityKeys.totalsteps.arName(),
-                info: widget.event.participant == null ? "0" : "${widget.event.participant!.totalSteps ?? 0}",
+                info: widget.event.participant == null
+                    ? "0"
+                    : "${widget.event.participant!.totalSteps ?? 0}",
               ),
             ),
           ],
@@ -110,21 +117,5 @@ class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
         Spacer(),
       ],
     );
-  }
-
-  void onStepCount(CMPedometerData data) {
-    log(data.numberOfSteps.toString());
-    setState(() {
-      // pace = data.currentPace ?? 0.0;
-      // distance =
-      //     double.parse(((data.distance ?? 0.0) / 1000).toStringAsFixed(2));
-      // stepPerMinute = data.currentCadence ?? 0.0;
-      _steps = data.numberOfSteps;
-    });
-    // Update ValueNotifier instead of setState
-  }
-
-  void onStepCountError(error) {
-    log('onStepCountError: $error');
   }
 }

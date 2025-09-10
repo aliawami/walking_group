@@ -1,79 +1,65 @@
-import 'dart:developer';
+import 'package:cm_pedometer/cm_pedometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pedometer/pedometer.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:walking_group/components/const_value/paddings/padding.dart';
+import 'package:walking_group/models/models.dart';
+import 'package:walking_group/waling_group.dart';
 
 class ActiveStepCounterView extends ConsumerStatefulWidget {
-  final int steps;
-  const ActiveStepCounterView({required this.steps, super.key});
+  final Events event;
+  const ActiveStepCounterView({required this.event, super.key});
 
   @override
   ConsumerState<ActiveStepCounterView> createState() => _StepCounterViewState();
 }
 
-class _StepCounterViewState extends ConsumerState<ActiveStepCounterView> {
-  late Stream<StepCount> _stepCountStream;
-
-  int _steps = 0;
-  bool initialized = false;
-
+class _StepCounterViewState extends ConsumerState<ActiveStepCounterView>
+    with LoggingMixin {
   @override
   void initState() {
-    _steps = widget.steps;
     super.initState();
-    initPlatformState();
-  }
+    final nowDate = DateTime.now();
+    var startingDate = DateTime.now().copyWith(
+        hour: 0, minute: 0, second: 0, microsecond: 0, millisecond: 0);
+    var eventDate = widget.event.eventDate;
+    if (widget.event.type != null) {
+      if (widget.event.type == EventsType.short.name) {
+        if (eventDate != null) {
+          if (eventDate.day == nowDate.day &&
+              eventDate.month == nowDate.month &&
+              eventDate.year == nowDate.year) {
+            if (eventDate.hour <= nowDate.hour ||
+                eventDate.minute <= nowDate.minute ||
+                eventDate.second <= nowDate.second) {
+              startingDate = eventDate;
+            }
+          }
+        }
+      } else {
+        // if (eventDate != null) {
+        //   if (eventDate.day == nowDate.day &&
+        //       eventDate.month == nowDate.month &&
+        //       eventDate.year == nowDate.year) {
+        //     if (eventDate.hour <= nowDate.hour ||
+        //         eventDate.minute <= nowDate.minute ||
+        //         eventDate.second <= nowDate.second) {
+        //       startingDate = eventDate;
+        //     }
+        //   }
+        // }
+      }
+    }
 
-  void onStepCount(StepCount event) {
-    log(event.steps.toString());
+    CMPedometer.stepCounterFirstStream(from: startingDate).listen((data) {
+      log('Start date: ${data.startDate}');
+      log('End date: ${data.endDate}');
 
-    setState(() {
-      _steps = event.steps;
+      setState(() {
+        _stepStream = data.numberOfSteps;
+      });
     });
   }
 
-  void onStepCountError(error) {
-    log('onStepCountError: $error');
-    setState(() {
-      _steps = 0;
-    });
-  }
-
-  Future<bool> _checkActivityRecognitionPermission() async {
-    bool granted = await Permission.activityRecognition.isGranted;
-
-    if (!granted) {
-      granted = await Permission.activityRecognition.request() ==
-          PermissionStatus.granted;
-    }
-
-    return granted;
-  }
-
-  Future<void> initPlatformState() async {
-    bool granted = await _checkActivityRecognitionPermission();
-    if (!granted) {
-      // showDialog(
-      //   // ignore: use_build_context_synchronously
-      //   context: context,
-      //   builder: (BuildContext context) => AlertDialog(
-      //     title: Text(
-      //       'Activity access',
-      //     ),
-      //     content: Text(
-      //       'The app will not read your setps. Please grant the app to access your activities',
-      //     ),
-      //   ),
-      // );
-    }
-
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(onStepCount).onError(onStepCountError);
-
-    if (!mounted) return;
-  }
+  int _stepStream = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +73,6 @@ class _StepCounterViewState extends ConsumerState<ActiveStepCounterView> {
           style: BorderStyle.solid,
         ),
       ),
-      // surfaceTintColor: Colors.white,
-
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -106,10 +90,9 @@ class _StepCounterViewState extends ConsumerState<ActiveStepCounterView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "$_steps",
+                  "$_stepStream",
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                // Text('Steps', style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
           ),

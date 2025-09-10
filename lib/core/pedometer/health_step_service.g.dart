@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pedestrian_service.dart';
+part of 'health_step_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pedestrianServiceHash() => r'be3322a92ee667925150bfc46d09c3a63dd61198';
+String _$healthStepServiceHash() => r'7875ff9fc0f69eb545b6d495377bbe6a4f315da0';
 
-/// See also [PedestrianService].
-@ProviderFor(PedestrianService)
-final pedestrianServiceProvider =
-    StreamNotifierProvider<PedestrianService, CMPedestrianStatus>.internal(
-  PedestrianService.new,
-  name: r'pedestrianServiceProvider',
+/// See also [HealthStepService].
+@ProviderFor(HealthStepService)
+final healthStepServiceProvider =
+    AutoDisposeAsyncNotifierProvider<HealthStepService, int>.internal(
+  HealthStepService.new,
+  name: r'healthStepServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$pedestrianServiceHash,
+      : _$healthStepServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PedestrianService = StreamNotifier<CMPedestrianStatus>;
+typedef _$HealthStepService = AutoDisposeAsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

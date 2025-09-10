@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'event_joining_service.dart';
+part of 'step_counter_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventJoiningServiceHash() =>
-    r'fdeb0c1ab4650708dca974e97f486262452be010';
+String _$stepCounterProviderHash() =>
+    r'2ca4b8e7b1335f99494d98df42ef9b73615e1bc6';
 
-/// See also [EventJoiningService].
-@ProviderFor(EventJoiningService)
-final eventJoiningServiceProvider =
-    AutoDisposeAsyncNotifierProvider<EventJoiningService, Events>.internal(
-  EventJoiningService.new,
-  name: r'eventJoiningServiceProvider',
+/// See also [StepCounterProvider].
+@ProviderFor(StepCounterProvider)
+final stepCounterProviderProvider =
+    AutoDisposeStreamNotifierProvider<StepCounterProvider, StepCount>.internal(
+  StepCounterProvider.new,
+  name: r'stepCounterProviderProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$eventJoiningServiceHash,
+      : _$stepCounterProviderHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$EventJoiningService = AutoDisposeAsyncNotifier<Events>;
+typedef _$StepCounterProvider = AutoDisposeStreamNotifier<StepCount>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

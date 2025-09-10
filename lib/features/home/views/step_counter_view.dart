@@ -23,57 +23,10 @@ class _StepCounterViewState extends ConsumerState<StepCounterView> {
   void initState() {
     _steps = widget.steps;
     super.initState();
-    initPlatformState();
   }
 
-  void onStepCount(StepCount event) {
-    log(event.steps.toString());
+ 
 
-    setState(() {
-      _steps = event.steps;
-    });
-  }
-
-  void onStepCountError(error) {
-    log('onStepCountError: $error');
-    setState(() {
-      _steps = 0;
-    });
-  }
-
-  Future<bool> _checkActivityRecognitionPermission() async {
-    bool granted = await Permission.activityRecognition.isGranted;
-
-    if (!granted) {
-      granted = await Permission.activityRecognition.request() ==
-          PermissionStatus.granted;
-    }
-
-    return granted;
-  }
-
-  Future<void> initPlatformState() async {
-    bool granted = await _checkActivityRecognitionPermission();
-    if (!granted) {
-      // showDialog(
-      //   // ignore: use_build_context_synchronously
-      //   context: context,
-      //   builder: (BuildContext context) => AlertDialog(
-      //     title: Text(
-      //       'Activity access',
-      //     ),
-      //     content: Text(
-      //       'The app will not read your setps. Please grant the app to access your activities',
-      //     ),
-      //   ),
-      // );
-    }
-
-    _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(onStepCount).onError(onStepCountError);
-
-    if (!mounted) return;
-  }
 
   @override
   Widget build(BuildContext context) {

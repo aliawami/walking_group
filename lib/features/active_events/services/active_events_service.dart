@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:walking_group/core/statics/statics.dart';
 import 'package:walking_group/models/models.dart';
@@ -19,6 +19,36 @@ class ActiveEventsService extends _$ActiveEventsService {
     state = AsyncValue.data(events);
   }
 
+
+  Future<void> getEventDailyLog(
+      {required List<Events> events, required String userID}) async {
+    if (events.isEmpty) {
+      return;
+    }
+
+    List<EventDailyLogs> eventDailyLogs = [];
+
+    for (var event in events) {
+      FirebaseFirestore.instance
+          .collection(fbEventDoc)
+          .doc(event.id!)
+          .collection(fbParticipentDoc)
+          .doc(userID)
+          .collection(fbDailyLogDoc)
+          .get()
+          .then((dailyLogs) {
+        if (dailyLogs.docs.isNotEmpty) {
+          final dailyLog = DailyLogs.fromJson(dailyLogs.docs.last.data());
+          final eventDailyLog =
+              EventDailyLogs(event: event, dailyLogs: dailyLog);
+          eventDailyLogs.add(eventDailyLog);
+        }
+      });
+    }
+  }
+
+
+/*
   Future<List<ActiveEventData>> fetchEventsList() async {
     final user = FirebaseAuth.instance.currentUser;
     List<ActiveEventData> activeEvents = [];
@@ -102,31 +132,8 @@ class ActiveEventsService extends _$ActiveEventsService {
 
     return activeEvents;
   }
+*/
 
-  Future<void> getEventDailyLog(
-      {required List<Events> events, required String userID}) async {
-    if (events.isEmpty) {
-      return;
-    }
 
-    List<EventDailyLogs> eventDailyLogs = [];
 
-    for (var event in events) {
-      FirebaseFirestore.instance
-          .collection(fbEventDoc)
-          .doc(event.id!)
-          .collection(fbParticipentDoc)
-          .doc(userID)
-          .collection(fbDailyLogDoc)
-          .get()
-          .then((dailyLogs) {
-        if (dailyLogs.docs.isNotEmpty) {
-          final dailyLog = DailyLogs.fromJson(dailyLogs.docs.last.data());
-          final eventDailyLog =
-              EventDailyLogs(event: event, dailyLogs: dailyLog);
-          eventDailyLogs.add(eventDailyLog);
-        }
-      });
-    }
-  }
 }
