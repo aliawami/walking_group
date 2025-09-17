@@ -24,7 +24,7 @@ class _TabViewState extends ConsumerState<TabView> {
   @override
   Widget build(BuildContext context) {
     ref.watch(profileServiceProvider);
-    final healthService = ref.watch(healthServiceProvider);
+    // final healthService = ref.watch(healthServiceProvider);
     if (!initalized) {
       ref.watch(healthServiceProvider.notifier).authorize();
     }

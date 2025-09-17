@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:walking_group/core/statics/statics.dart';
@@ -16,9 +17,34 @@ class ActiveEventsService extends _$ActiveEventsService {
   }
 
   Future<void> updateList(List<ActiveEventData> events) async {
-    state = AsyncValue.data(events);
-  }
+    final eventOrdered = events.groupListsBy((event) => event.event!.type);
+    if (eventOrdered.keys.isNotEmpty) {
+      List<ActiveEventData> listOfOrders = [];
+      if (eventOrdered.keys.contains(short)) {
+        final todaysEvents = eventOrdered[short]!
+            .groupListsBy((event) => event.event!.eventDate);
+        if (todaysEvents.keys.isNotEmpty) {
+          final today = DateTime.now();
+          final todayEventDate = todaysEvents.keys;
+          for (var dateKey in todayEventDate) {
+            final date = dateKey!;
+            if (today.difference(date).inDays == 0) {
+              listOfOrders = [...listOfOrders, ...todaysEvents[dateKey]!];
+            }
+          }
+        }
+        // listOfOrders = [...listOfOrders, ...eventOrdered[short]!];
+      }
 
+      if (eventOrdered.keys.contains(monthly)) {
+        listOfOrders = [...listOfOrders, ...eventOrdered[monthly]!];
+      }
+
+      state = AsyncValue.data(listOfOrders);
+    } else {
+      state = AsyncValue.data(events);
+    }
+  }
 
   Future<void> getEventDailyLog(
       {required List<Events> events, required String userID}) async {
@@ -46,7 +72,6 @@ class ActiveEventsService extends _$ActiveEventsService {
       });
     }
   }
-
 
 /*
   Future<List<ActiveEventData>> fetchEventsList() async {
@@ -133,7 +158,4 @@ class ActiveEventsService extends _$ActiveEventsService {
     return activeEvents;
   }
 */
-
-
-
 }

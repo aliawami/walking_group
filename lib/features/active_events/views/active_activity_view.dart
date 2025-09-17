@@ -17,14 +17,19 @@ class ActiveActivityView extends ConsumerStatefulWidget {
 
 class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
     with LoggingMixin {
-  int _steps = 0;
-
+  late ActiveEventData activeEvent;
   @override
   void initState() {
     if (widget.event.event != null) {
       if (widget.event.event!.type != null) {
         if (widget.event.event!.type!.toLowerCase() ==
-            EventsType.monthly.name.toLowerCase()) {}
+            EventsType.monthly.name.toLowerCase()) {
+              final currentEvent = widget.event.event!;
+              if(widget.event.participant == null){
+                // final participant = Participants()
+              }
+              // final event = widget.event.participant
+            }
       }
     }
 
@@ -37,27 +42,33 @@ class _HomeActivateViewState extends ConsumerState<ActiveActivityView>
       crossAxisAlignment: CrossAxisAlignment.stretch,
       // mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: padding15V,
-          alignment: Alignment.center,
-          // color: Colors.blueGrey.shade900,
-          decoration: BoxDecoration(
-            // color: Colors.blueGrey.shade900,
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                12,
+        widget.event.event == null
+            ? SizedBox.shrink()
+            : Container(
+                padding: padding15V,
+                alignment: Alignment.center,
+                // color: Colors.blueGrey.shade900,
+                decoration: BoxDecoration(
+                  // color: Colors.blueGrey.shade900,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      12,
+                    ),
+                  ),
+                  border: Border.all(
+                    width: 2,
+                    color: widget.event.event == null
+                        ? Colors.transparent
+                        : Colors.blueGrey.shade400,
+                  ),
+                ),
+                child: Text(
+                  widget.event.event == null
+                      ? ''
+                      : widget.event.event!.title ?? '',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ),
-            ),
-            border: Border.all(
-              width: 2,
-              color: Colors.blueGrey.shade400,
-            ),
-          ),
-          child: Text(
-            widget.event.event == null ? '' : widget.event.event!.title ?? '',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
         Spacer(),
         Padding(
           padding: padding15Bottom,

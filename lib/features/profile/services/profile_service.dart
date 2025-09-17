@@ -27,11 +27,11 @@ class ProfileService extends _$ProfileService with LoggingMixin {
     if (user != null) {
       final userId = user.uid;
 
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collectionGroup(fbParticipentDoc)
           .where('userID', isEqualTo: userId)
           .get()
-          .then((querySnapshot) {
+          .then((querySnapshot) async {
         List<String> participatedEventIds = [];
         ActiveEventData eventData = ActiveEventData();
         for (var doc in querySnapshot.docs) {
@@ -41,11 +41,11 @@ class ProfileService extends _$ProfileService with LoggingMixin {
           eventData.participant = participant;
         }
 
-        FirebaseFirestore.instance
+        await FirebaseFirestore.instance
             .collection(fbEventDoc)
             .where(FieldPath.documentId, whereIn: participatedEventIds)
             .get()
-            .then((eventsSnapshot) {
+            .then((eventsSnapshot) async {
           for (var eventDoc in eventsSnapshot.docs) {
             final event = Events.fromJson(eventDoc.data());
             if (event.status != null) {
@@ -54,8 +54,22 @@ class ProfileService extends _$ProfileService with LoggingMixin {
                 completedEvents.add(event);
               } else if (event.status!.toLowerCase() ==
                   EventStatus.active.name.toLowerCase()) {
+                final dailyLogSnapshot = await FirebaseFirestore.instance
+                    .collection(fbEventDoc)
+                    .doc(event.id)
+                    .collection(fbParticipentDoc)
+                    .doc(userId)
+                    .collection(
+                        'dailyLog') // Navigate to the dailyLog subcollection
+                    .get();
+
+                List<DailyLogs> dailyLogs = [];
+                for (var logDoc in dailyLogSnapshot.docs) {
+                  dailyLogs.add(DailyLogs.fromJson(logDoc.data()));
+                }
                 activeEvents.add(event);
                 eventData.event = event;
+                eventData.dailyLogs = dailyLogs;
                 activeEventsData.add(eventData);
               } else {
                 upcomingEvents.add(event);
@@ -63,11 +77,12 @@ class ProfileService extends _$ProfileService with LoggingMixin {
             }
           }
           // Process event documents
-          ref.read(activeEventsServiceProvider.notifier).updateList(activeEventsData);
+          ref
+              .read(activeEventsServiceProvider.notifier)
+              .updateList(activeEventsData);
         });
       });
     }
-    
 
     return UserData(
         user: user,

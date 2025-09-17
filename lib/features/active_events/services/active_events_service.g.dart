@@ -7,7 +7,7 @@ part of 'active_events_service.dart';
 // **************************************************************************
 
 String _$activeEventsServiceHash() =>
-    r'341c24803b755b31f02d21306a77d556c8ca8e04';
+    r'65fe0332a401186796328c8164b889fba2a6a1f8';
 
 /// See also [ActiveEventsService].
 @ProviderFor(ActiveEventsService)

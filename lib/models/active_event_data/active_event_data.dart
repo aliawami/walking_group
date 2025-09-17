@@ -2,12 +2,12 @@ import 'package:walking_group/models/models.dart';
 
 class ActiveEventData {
   Events? event;
-  List<Participants>? participants;
+  List<DailyLogs>? dailyLogs;
   Participants? participant;
 
   ActiveEventData({
     this.event,
-    this.participants,
+    this.dailyLogs,
     this.participant,
   });
 }

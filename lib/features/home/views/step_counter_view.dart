@@ -1,8 +1,5 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pedometer/pedometer.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:walking_group/components/const_value/paddings/padding.dart';
 
 class StepCounterView extends ConsumerStatefulWidget {
@@ -14,7 +11,7 @@ class StepCounterView extends ConsumerStatefulWidget {
 }
 
 class _StepCounterViewState extends ConsumerState<StepCounterView> {
-  late Stream<StepCount> _stepCountStream;
+  
 
   int _steps = 0;
   bool initialized = false;

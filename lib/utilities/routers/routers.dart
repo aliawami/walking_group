@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:walking_group/features/active_events/active_events.dart';
 import 'package:walking_group/features/event_create/views/event_create_view.dart';
 import 'package:walking_group/features/tab_view/tab_view.dart';
 import 'package:walking_group/features/features.dart';
@@ -15,7 +14,7 @@ final routers = GoRouter(
       path: '/',
       parentNavigatorKey: rootNavigatorKey,
       pageBuilder: (context, state) =>
-          const NoTransitionPage(child: ActivitySetpsShowingView()),
+          const NoTransitionPage(child: LoginView()),
       routes: [
         GoRoute(
           path: '/signup',
